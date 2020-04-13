@@ -1,17 +1,15 @@
 # Project Viewer
-> Here goes your awesome project description!
 
-## Table of contents
-* [General info](#general-info)
-* [Tecnologia](#Tecnologia)
+## Contenido
+* [General informacion](#general-informacion)
+* [Tecnología](#Tecnología)
 * [Setup](#setup) 
 * [Status](#status)
 
-## General info
-Este proyecto tiene como objetivo crear enlaces con una seleccion de projectos ya desarrollados disponible por usuarios.
+## General informacion
+Este proyecto tiene como objetivo crear enlaces con una selección de proyectos ya desarrollados disponible por usuario.
 
-## Tecnologia
-Project is created with:
+## Tecnología
 * Angular 6
 	
 ## Setup
