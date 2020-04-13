@@ -1,0 +1,111 @@
+<page-loader></page-loader>
+<div class="animated fadeIn">
+      <div class="row">
+          <div class="col-md-12">
+              <div class="card">
+                <div class="card-header text-center"
+                     style="font-family: 'Nunito', sans-serif;">
+                  <h4><strong>Configuración <br> Metodología de gestión Showcases</strong></h4>
+                </div>
+                <div class="card-body">
+                  <div  class="row p-2">
+                    <div class="col-md-12">                      
+                      <form [formGroup]="myForm" novalidate (ngSubmit)="save(myForm)">
+                        <div formArrayName="fases"
+                             class="row">
+                          <div *ngFor="let fase of myForm.get('fases')['controls']; let i=index"
+                                class="col-md-6"
+                                style="margin-bottom: 3rem; text-align: center;">
+                            <div class="panel-heading col-md-6 col-sm-4 col-xs-12">
+                              <strong> <span>Fase: {{i+1}}</span></strong>
+                            </div>
+                              <div [formGroupName]="i"
+                                   class="panel-body"
+                                   class="col-md-12">
+                                <div class="row">
+                                  <div class="form-group col-md-12">
+                                      <div class="btn-group" role="group"
+                                           style="position: relative; left: -20px;" 
+                                           aria-label="Basic example">
+                                          <input formControlName="name"
+                                                 class="form-control" 
+                                                 placeholder="Nombre de la fase *" />
+                                        <span *ngIf="myForm.controls.fases.controls.length > 1"
+                                              style="cursor: default; margin-left: 1rem; display: inline-block; line-height: 2rem;">
+                                          <i (click)="deleteFase(i)" class="fa fa-times" aria-hidden="true"></i>
+                                        </span>
+                                      </div>                                    
+                                  </div>
+                                </div>
+                                <div class="row" style="justify-content: center;">
+                                  <div formArrayName="header">
+                                    <div *ngIf="myForm.get('fases')?.at(i)?.get('header')?.length < 4">
+                                      <div class="alert alert-warning" role="alert">Tienen que haber cuatro items <br> para permitir la carga de  archivos!</div>
+                                    </div>
+                                    <div *ngFor="let dat of myForm.get('fases')?.at(i)?.get('header')['controls']; let j=index"
+                                         class="col-md-12" style="text-align: initial;">    
+                                      <span>Item: {{j+1}}</span>   
+                                      <div [formGroupName]="j">
+                                        <div  class="form-group" 
+                                              style="padding-right:0px">
+                                          <div class="btn-group" role="group" aria-label="Basic example">
+                                            <input formControlName="name"
+                                                   class="form-control" 
+                                                   placeholder="Nombre del item *" />
+                                            <span 
+                                                  style="cursor: default; margin-left: 1rem; display: inline-block; line-height: 2rem;">
+                                              <i (click)="deleteHeader(fase.controls.header, j)" class="fa fa-times" aria-hidden="true"></i>
+                                            </span>
+                                          </div>                                          
+                                        </div>
+                                      </div>
+                                    </div> 
+                                      <span *ngIf="fase.controls.header.controls.length === 0" 
+                                             for="newItem"
+                                             style="cursor: default; position: relative; left: 4rem;  border: 1px solid #cfa10d; padding: 6px 10px; border-radius: 10px; background-color: #cfa10d40;"
+                                              (click)="addNewHeader(fase.controls.header)">
+                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                        <span id="newItem">
+                                            Nuevo item
+                                        </span> 
+                                      </span>       
+                                      <span *ngIf="fase.controls.header.controls.length > 0" 
+                                             for="newItem"
+                                             style="cursor: default; float: right; position: relative;
+                                                  border: 1px solid #cfa10d; padding: 4px 10px;
+                                                  border-radius: 10px; right: 1rem;
+                                                  background-color: #cfa10d40;"
+                                              (click)="addNewHeader(fase.controls.header)" >
+                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                        <span id="newItem">
+                                            Nuevo item
+                                        </span> 
+                                       </span> 
+                                  </div>
+                                </div>
+                              </div>                           
+                          </div>
+                        </div>
+                        <div class="col-md-6"
+                             style="position: relative; left: 5.5rem;">
+                          <span for="newFases" (click)="addNewFase()"
+                                style="cursor: default; justify-content: center;  border: 1px solid #cfa10d; padding: 8px 8px;  border-radius: 10px; width: 21%; background-color: #cfa10d40;">
+                              <i  class="fa fa-plus" aria-hidden="true"></i>
+                            <span id="newFases">
+                              Nueva fase
+                            </span> 
+                          </span> 
+                        </div> 
+                        <div class="col-md-6" style="justify-content: flex-end; display: flex; margin: 1rem;">
+                          <button type="submit" class="btn btn-primary pull-right" >Guardar</button>
+                        </div>
+                      </form>
+                        
+                    </div>  
+                                                      
+                  </div>                             
+                </div>
+            </div>
+          </div>
+        </div>
+</div>

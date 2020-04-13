@@ -1,0 +1,17 @@
+p {
+  margin-bottom: 0.25rem;
+  .pkey {
+    width: 100px;
+    display: inline-grid;
+    text-align: right;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  p {
+    .pkey {
+      display: block;
+      text-align: left;
+    }
+  }
+}

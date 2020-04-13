@@ -1,0 +1,199 @@
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div *ngIf="!updateCompany" class="card-header text-center" style="font-family: 'Nunito', sans-serif;">
+            <h4><strong>Registrar Empresa</strong></h4>   
+        </div>
+        <div *ngIf="updateCompany" class="card-header text-center"  style="font-family: 'Nunito', sans-serif;" >
+            <h4><strong>Detalles Empresa</strong></h4>
+        </div>
+        <div class="card-body">
+
+          <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="form-horizontal was-validated">
+            <div class="row">
+
+              <div class="col-md-12 d-flex">
+                <button *ngIf="updateCompany && !editCompany" class="btn btn-success ml-auto" (click)="edit()">
+                  <i class="icon-pencil"></i> Editar </button>
+              </div>
+
+            </div>
+            <div class="row">
+              <div class="form-group col-md-12 text-center">
+                <label class="form-col-form-label "><strong>Datos de la empresa</strong></label>
+              </div>
+            </div>
+
+            <div class="row">
+
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-md-4">
+                  </div>
+                  <div class="form-group col-md-8 distancia">
+                    <label class="control-label col-md-12 col-sm-4 col-xs-12" style="position: relative; right: 0.6rem;">Nombre
+                      de la empresa</label>
+                    <input maxlength=80 [(ngModel)]="company.name" formControlName="name" [ngClass]="{ 'is-invalid': submitted && validate.name.errors }"
+                      type="text" class="form-control" placeholder="Nombre *" required>
+                    <div *ngIf="submitted && validate.name.errors" class="invalid-feedback">
+                      <div *ngIf="validate.name.errors.required">El nombre es requerido</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+
+                  <div class="col-md-4">
+                  </div>
+
+                  <div class="form-group col-md-8 distancia">
+                    <label class="control-label col-md-12 col-sm-4 col-xs-12" style="position: relative; right: 0.6rem;">Identificación
+                      fiscal</label>
+                    <input maxlength=20 [(ngModel)]="company.tax_information" formControlName="tax_information" [ngClass]="{ 'is-invalid': submitted && validate.tax_information.errors }"
+                      type="text" class="form-control" placeholder="Nro de información fiscal">
+                    <!-- <div *ngIf="submitted && validate.tax_information.errors" class="invalid-feedback">
+                      <div *ngIf="validate.tax_information.errors.required">El nro de información
+                        fiscal es requerido
+                      </div>
+                    </div> -->
+                  </div>
+
+                </div>
+
+                <div class="row">
+
+                  <div class="col-md-4">
+                  </div>
+
+                  <div class="form-group col-md-8">
+                    <label class="control-label col-md-12 col-sm-4 col-xs-12" style="position: relative; right: 0.6rem;">Descripción</label>
+                    <textarea maxlength=2000 [(ngModel)]="company.description" type="text" formControlName="description" [ngClass]="{ 'is-invalid': submitted && validate.tax_information.errors }"
+                      type="text" class="form-control">
+                    </textarea>
+                  </div>
+
+                </div>
+
+              </div>
+
+              <div class="col-md-4">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="img-center" *ngIf="view && image!=null">
+                      <div class="fix-btn-center">
+                        <img [src]="image" style="height: 9rem;  min-width: calc(1rem);" class="img-responsive">
+                      </div>
+                    </div>
+
+                    <div class="img-center" *ngIf="view && image==null">
+                      <div class="fix-btn-center">
+                        <img src="assets/img/company/company.png" style="height: 10rem;" class="img-responsive">
+                      </div>
+                    </div>
+
+                    <div class="fix-btn-center" *ngIf="!view">
+                      <label for="image" class="btn btn-app">
+                        <i class="fa fa-picture-o"></i> Seleccionar imagen </label>
+                      <input type="file" id="image" name="image" formControlName="file" accept="image/x-png,image/gif,image/jpeg"
+                        (change)="onFileChange($event)">
+                    </div>
+                  </div>
+
+                </div>
+                <button *ngIf="limpiar" type="button" class="close" style="position: absolute; right: 0px; top: 30px; color: #fe0000; text-shadow: 0 1px 0 #fe0000;"
+                  aria-pressed="true" (click)="clear()">
+                  <i class="fa fa-times">
+                  </i>
+                </button>
+                <button *ngIf="deletePhoto" type="button" class="close" style="position: absolute; right: 0px; top: 30px; color: #fe0000; text-shadow: 0 1px 0 #fe0000;"
+                aria-pressed="true" (click)="photoDelete()">
+                <i class="fa fa-times">
+                </i>
+              </button>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="form-group col-md-12 text-center">
+                <label class="form-col-form-label" style="position: relative; top: 10px;">
+                    <strong>Datos para la venta</strong></label>
+              </div>
+            </div>
+
+            <div class="row">
+
+              <div class="col-md-2">
+              </div>
+
+              <div class="form-group  col-md-4 distancia">
+                <label class="control-label col-md-12 col-sm-4 col-xs-12" style="position: relative; right: 0.6rem;">Nombre
+                  del encargado</label>
+                <input maxlength=80 [(ngModel)]="company.manager.name_manager" formControlName="name_manager" [ngClass]="{ 'is-invalid': submitted && validate.name_manager.errors }"
+                  type="text" class="form-control" placeholder="Nombre del encargado *" required>
+                <div *ngIf="submitted && validate.name_manager.errors" class="invalid-feedback">
+                  <div *ngIf="validate.name_manager.errors.required">El nombre es requerido</div>
+                </div>
+              </div>
+
+              <div class="form-group  col-md-4 distancia">
+                <label class="control-label col-md-12 col-sm-4 col-xs-12" style="position: relative; right: 0.6rem;">Apellido
+                  del encargado</label>
+                <input maxlength=80 [(ngModel)]="company.manager.last_name_manager" formControlName="last_name_manager" [ngClass]="{ 'is-invalid': submitted && validate.last_name_manager.errors }"
+                  type="text" class="form-control" placeholder="Apellido del encargado *" required>
+                <div *ngIf="submitted && validate.last_name_manager.errors" class="invalid-feedback">
+                  <div *ngIf="validate.last_name_manager.errors.required">El apellido es requerido</div>
+                </div>
+              </div>
+
+              <div class="col-md-2">
+              </div>
+
+            </div>
+
+            <div class="row">
+              <div class="col-2">
+              </div>
+              <div class="form-group  col-md-4 distancia">
+                <label class="control-label col-md-12 col-md-4 col-xs-12" style="position: relative; right: 0.6rem;">Teléfono
+                  de la empresa</label>
+                <input maxlength=20 [(ngModel)]="company.phone" formControlName="phone" [ngClass]="{ 'is-invalid': submitted && validate.phone.errors }"
+                  type="text" class="form-control" placeholder="Teléfono *" required>
+                <div *ngIf="submitted && validate.phone.errors" class="invalid-feedback">
+                  <div *ngIf="validate.phone.errors.required">El teléfono es requerido</div>
+                  <div *ngIf="validate.phone.errors.minlength">Se requiere un minimo de 11 caracteres</div>
+                </div>
+              </div>
+
+              <div class="form-group col-md-4">
+
+                <label class="control-label col-md-12 col-sm-4 col-xs-12" style="position: relative; right: 0.6rem;">Correo
+                  de la empresa</label>
+                <input maxlength=80 [(ngModel)]="company.email" formControlName="email" [ngClass]="{ 'is-invalid': submitted && validate.email.errors }"
+                  type="text" class="form-control" placeholder="Correo *" required>
+                <div *ngIf="submitted && validate.email.errors" class="invalid-feedback">
+                  <div *ngIf="validate.email.errors.required">El correo es requerido</div>
+                  <div *ngIf="validate.email.errors.email">El correo no es valido</div>
+                </div>
+
+                <div class="col-md-2">
+                </div>
+
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12 text-center"  style="margin: 50px 0px 10px 0px;">
+                <button *ngIf="!updateCompany" class="btn btn-success" (click)="save(company)" style="position: relative; right: 2rem;">
+                  <i class="fa fa-save"></i> Guardar </button>
+                <button *ngIf="updateCompany && editCompany" class="btn btn-success" (click)="update(company)" style="position: relative; right: 2rem;">
+                  <i class="fa fa-save"></i> Actualizar </button>
+                <button class="btn btn-danger" (click)="cancelar()" style="position: relative; left: 2rem;"><i class="fa fa-times"></i>
+                  Cancelar</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

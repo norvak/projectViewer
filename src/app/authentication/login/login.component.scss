@@ -1,0 +1,137 @@
+@media (max-width: 200px) and (max-heigth: 160px) {
+    .mifuente {
+        font-size: 60px;
+    }
+
+    
+}
+
+.tamImg {
+   position: relative;
+    left: 100px;
+}
+@media (max-width: 991.98px) {
+    .body-content {
+        display: inline !important;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+@media (max-width: 991.98px) {
+    .tamImg {
+        position: relative !important;   
+        left: 0px !important;      
+     }
+}
+
+.positionLogin {
+   text-align: -moz-right;
+   text-align: -webkit-right;
+}
+
+@media (max-width: 991.98px) {
+    .positionLogin {
+        text-align: -webkit-center !important;
+     }
+}
+
+.app-body {
+    background-image: url("../../../assets/img/fondo/fondo3.svg");   
+    // height: 100%;
+    // overflow: hidden;
+    margin-top: 0px !important;
+    background-size: cover;
+    background-position: bottom;
+    background-repeat: no-repeat;
+    
+}
+
+
+@media (max-width: 991.98px) {
+    .login-content {
+        background: #ffffffbf;
+        width: 80% !important;
+        position: relative;
+        flex: 1 1 auto;
+        padding: 2rem;
+        border: solid #333333e3;
+        border-radius: 10px;
+        margin-right: 0px !important;
+        margin-top: 50px;
+        box-shadow: 0px 10px 25px 5px;
+    }
+}
+
+
+
+.btn-info:not(:disabled):not(.disabled):active, .btn-info:not(:disabled):not(.disabled).active, .show > .btn-info.dropdown-toggle {
+    color: #fff;
+    background-color: #000000;
+    border-color: #f3b80c;
+}
+
+.btn-info:focus, .btn-info.focus {
+    box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.58);
+}
+.btn-primary:focus, .btn-primary.focus {
+    box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.58);
+}
+
+.btn.disabled, .btn:disabled {
+    opacity: 1;
+}
+
+.alert {
+    top: 8px;
+}
+.alert-danger {
+    color: #813838;
+    background-color: #e8b9b7;
+    border-color: #e8b9b7;
+}
+
+.form-control:focus {
+    color: #000000;
+    background-color: #fff;
+    border-color: #f3b80c8a;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(228, 189, 69, 0.52156862745);
+}
+
+.body-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-content {
+    background: #ffffffbf;
+    width: 60%;
+    position: relative;
+    flex: 1 1 auto;
+    padding: 2rem;
+    border: solid #333333e3;
+    border-radius: 10px;
+    margin-right: 50px;
+    margin-top: 50px;
+    box-shadow: 0px 10px 25px 5px;
+    text-align: center;
+}
+
+.footer-login {
+    position: relative;
+    top: 20px;
+    text-align: center;
+    padding: 10px;
+}
+
+.footer-login p {
+    text-align: center;
+}
+
+.btn-custom {
+    color: #ffffff;
+    background-color: #333333;
+    border-color: #313233;
+}

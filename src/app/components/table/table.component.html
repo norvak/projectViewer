@@ -1,0 +1,47 @@
+<table class="table table-responsive-sm mb-0">
+  <thead class="thead-light" >
+    <tr>
+      <th class="text-center" *ngFor="let h of header">
+        {{h.name}}
+      </th>                                    
+      <th class="text-center">
+        Acción 
+      </th>  
+    </tr>
+  </thead> 
+  <tbody> 
+    <tr *ngFor="let row of body">
+      <td class="form-group" *ngFor="let value of row.data; let i = index;">
+        <textarea type="text" rows="2" class="form-control" [value]="value" (change)="row.data[i] = $event.target.value; emitChange.emit({ value: $event.target.value, row: row})"></textarea>
+      </td>  
+      <td class="text-center">
+        <div class="btn-group" role="group" aria-label="Basic example">
+          <a class="iconAction" style="color: #d0a10d;" tooltip="Guardar" (click)="saveRow(body, l)">
+            <i class="fa fa-save"></i> 
+            <span class="text-hidden">                
+            </span>
+          </a>                                        
+          <label for="entregable" tooltip="Subir archivo(s)" style="margin-bottom: 0; margin-left: 1rem;">
+            <i class="fa fa-cloud-upload btnAction" style="color: #d0a10d;"    
+               (click)="addDataOfRow(i, l)"        
+               aria-hidden="true">
+            </i>   
+          </label>  
+          <input type="file"
+                 id="entregable" 
+                 (change)="onFileChange($event.target.files)"
+                 accept="application/pdf,application/video/mp4,video/x-m4v,video/*,application/image/x-png,image/gif,image/jpeg,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/msword" multiple>
+          <a class ="iconAction"
+              style="color: #d0a10d;"
+             (click)="deleteRow(header.controls.body, l)"
+             tooltip="Eliminar">
+            <i class="fa fa-trash">
+            </i>
+            <span class="text-hidden">
+            </span>                                          
+          </a>
+        </div>
+      </td>                                              
+    </tr>
+  </tbody>
+</table> 

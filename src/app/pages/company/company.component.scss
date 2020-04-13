@@ -1,0 +1,21 @@
+.btn-primary {
+    color: #fff;
+    background-color: #d0a10d;
+    border-color: #d0a10d;
+}
+
+.btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show>.btn-primary.dropdown-toggle {
+    color: #fff;
+    background-color: #d0a10d !important;
+    border-color: #d0a10d  !important;
+}
+
+.btn-primary.focus, .btn-primary:focus {
+    box-shadow: 0 0 0 0.2rem rgba(234, 207, 121, 0.5) !important;
+}
+
+.btn-primary:hover {
+    color: #fff;
+    background-color: #e4b10f;
+    border-color: #e4b10f;
+}

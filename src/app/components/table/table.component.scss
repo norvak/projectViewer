@@ -1,0 +1,114 @@
+.btn-primary {
+    color: #fff;
+    background-color: #d0a10d;
+    border-color: #d0a10d;
+}
+
+.btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show>.btn-primary.dropdown-toggle {
+    color: #fff;
+    background-color: #d0a10d !important;
+    border-color: #d0a10d  !important;
+}
+
+.btn-primary.focus, .btn-primary:focus {
+    box-shadow: 0 0 0 0.2rem rgba(234, 207, 121, 0.5) !important;
+}
+
+.btn-primary:hover {
+    color: #fff;
+    background-color: #e4b10f;
+    border-color: #e4b10f;
+}
+
+.corte {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    font-size: calc(1vw);
+  }
+
+input[type="file"] {
+    display: none;
+}
+
+.accordion {
+    background-color: #dcaf24;
+    text-align: center;
+    color: #fff;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    transition: 0.4s;
+}
+
+.active, .accordion:hover {
+    background-color: #ffc102;
+}
+
+.accordion:after {
+    content: '\002B';
+    color: #fff;
+    font-weight: bold;
+    float: right;
+    margin-left: 5px;
+}
+
+.active:after {
+    content: "\2212";
+}
+
+.panel {
+    padding: 0 0 0 0;
+    background-color: #eeeeeeed;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+}
+
+.new {
+    background-color: #fad460;
+    display: flex;
+    float: right;
+    top: calc(2.2rem);
+    position: relative;
+    padding: 0px 8px;
+    border-radius: 100%;
+    border: 0px solid transparent;
+}
+.new:after {
+    content: '\002B';
+    color: #fff;
+    font-weight: bold;
+}
+
+.new:focus {
+    outline: 1px dotted;
+    outline: 0px auto transparent;
+}
+
+.new:hover {
+    background-color: #f1b500;
+}
+
+.iconAction {
+    margin-left: 1rem;
+    position: relative;
+    top: 0rem;
+    background-color: transparent;
+    font-size: calc(1.8rem);
+}
+
+.iconAction:hover {
+    background-color: transparent;
+}
+
+.btnAction {
+    background-color: transparent; 
+    font-size: calc(1.8rem);
+    padding-left: 0px; 
+    position: relative;
+    top: 10px;
+}

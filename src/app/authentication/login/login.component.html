@@ -1,0 +1,55 @@
+<page-loader></page-loader>
+<div class="app-body" >
+    
+    <div class="body-content" style="width: calc(100%);">
+      <div class="col-md-6 tamImg" style="justify-content: center; display: flex;" >
+          <img src="assets/img/fondo/Logo3.png" style="width: calc(80%); height: calc(80%); box-shadow: 0px 10px 25px 5px;" class="img-responsive">
+      </div>
+      <div class="col-md-6 positionLogin" >
+          <div class="login-content">
+                <img src="assets/img/fondo/Logo4.png" style="width: calc(20%); position: relative;  top: -10px; height: calc(20%);" class="img-responsive">
+              <form (ngSubmit)="onSubmit()" [formGroup]="formLogin" >
+                  <div class="row justify-content-center">
+                      <div class="col-12 mx-auto text-center">
+                          <h2>Iniciar sesión</h2>
+                      </div>
+                  </div>
+  
+                  <div class="input-group mb-3" style="margin-top: 20px">
+                      <input type="text" class="form-control" placeholder="Usuario o Email" [ngClass]="{ 'is-invalid': errorEmail() }"
+                      formControlName="username">
+                      <div *ngIf="errorEmail()" class="invalid-feedback">
+                          <p *ngIf="formLogin.get('username').getError('required')">Campo Requerido</p>
+                          <p *ngIf="formLogin.get('username').getError('username')"> Formato Invalido </p>
+                      </div>
+                  </div>
+  
+                  <div class="input-group mb-3">
+                      <input type="password" class="form-control" name="password" placeholder="Contraseña" [ngClass]="{ 'is-invalid': errorPassword() }"
+                      formControlName="password">
+                      <div *ngIf="errorPassword()" class="invalid-feedback">
+                          <p *ngIf="formLogin.get('password').getError('required')">Campo Requerido</p>
+                      </div>
+                  </div>
+  <!-- justify-content-center -->
+  <!-- text-center -->
+                  <div class="row">
+                      <div class="col-md-12" style="text-align: center;">
+                          <button type="submit" class="btn btn-lg btn-custom"
+                          [ngClass]="{'disabled': this.formLogin.invalid }">Ingresar
+                          </button>
+                      </div>
+                  </div>
+              </form>
+  
+              <div class="footer-login">
+                  <p>©{{ year }} Todos los derechos reservados. Showcases.</p>
+              </div>
+          </div>
+        </div>
+        
+    </div>
+  
+
+</div>
+

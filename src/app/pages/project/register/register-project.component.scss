@@ -1,0 +1,178 @@
+.distancia {
+  margin-bottom: 0.9rem !important;
+}
+
+.linea {
+  border: solid 1px #bbb3b3;
+  margin: 1px 0px;
+}
+
+.btn.btn-app {
+  padding: 35px 0px !important;
+  min-width: 100px !important;
+  min-height: 100px !important;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+datalist {
+  display: none;
+}
+
+.img-center {
+  position: relative;
+  width: 20%;
+  height: 50%;
+}
+
+.mt-4, .my-4 {
+  margin-top: 0.5rem !important;
+}
+
+.fix-btn-center {
+  display: flex;
+  justify-content: center;
+  margin: 2px 2px;
+  position: relative;
+  top: 5px;
+}
+
+.fix-btn-center label {
+  font-size: 16px;
+  border-color: #010101;
+}
+
+.corte {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+
+.lapiz-izquierda{
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  color: #55535357;
+}
+
+.lapiz-izquierda div {
+  display: inline;
+}
+
+.lapiz-margen:hover{
+  cursor: pointer;
+  color: black;
+
+}
+
+.was-validated .form-control:invalid, .form-control.is-invalid {
+  padding-right: 0rem;
+}
+
+.was-validated .form-control:invalid, .form-control.is-invalid {
+  padding-right: 0rem;
+}
+
+.was-validated .form-control:valid, .form-control.is-valid {
+  padding-right: 0rem;
+}
+
+.pospro {
+  position: absolute;
+  right: -20px; 
+  width: 30px; 
+  top: -4px; 
+  color: #fe0000; 
+  text-shadow: 0 1px 0 #fe0000;
+}
+
+/**
+* !Efecto de play en videos 
+*/
+
+.thumb {
+  display: flow-root;
+  flex-wrap: wrap;
+  list-style: none;
+}
+
+.thumb li {
+  width: 193px;
+}
+
+.thumb li ~ li {
+  margin-left: 20px;
+}
+
+.thumb .thumbCaption {
+  padding: 10px 0;
+}
+
+.overlay {
+  position: relative;
+ left: 10px;
+}
+
+.overlay .thumbnail {
+  display: block;
+  width:calc(6rem);
+  height:calc(3rem);
+}
+
+.overlay .time {
+  position: absolute; z-index: 2;
+  // right: 3px; 
+  left: 79px;
+  // bottom: 3px;
+  bottom: 0;
+  padding: 0px 4px;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  font-size: calc(0.7rem);
+}
+
+.overlay .playWrapper {
+  opacity: 0;
+  position: absolute; z-index: 1;
+  top: 0;
+  // width: 192px;
+  // height: 109px;
+  width:calc(6rem);
+  height:calc(3rem); 
+  background: rgba(0,0,0,0.6) url("../../../../assets/img/fotos-icon/play-button.png") no-repeat scroll center center / 50px 50px;
+}
+
+.playWrapper .playBtn {
+  position: absolute;
+   z-index: 2;
+  width: 50px; 
+  height: 50px;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto; /* center */
+}
+
+.thumb .overlay:hover .playWrapper {
+  opacity: 1;
+}
+
+/*Remove the scrollbar from Chrome, Safari, Edge and IE*/
+/* ::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+} */
+
+* {
+  -ms-overflow-style: none !important;
+}
+
+.scroll-me {
+  height: calc(210px);
+  overflow-y: scroll;
+  overflow-x: hidden;
+}

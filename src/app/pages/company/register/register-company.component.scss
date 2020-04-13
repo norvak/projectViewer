@@ -1,0 +1,44 @@
+.distancia {
+    margin-bottom: 0.9rem !important;
+}
+
+.linea {
+    border: solid 1px #bbb3b3;
+    margin: 1px 0px;
+}
+
+.img-center  {
+    position: relative;
+    widows: 100%;
+    height: 100%;
+}
+
+.fix-btn-center {
+    display: flex;
+    justify-content: center;
+    margin: 40px 2px;
+    position: relative;
+    top: 15px;
+}
+
+.fix-btn-center label {
+    font-size: 16px;
+    border-color: #010101;
+}
+
+.btn.btn-app {
+    padding: 60px 60px 50px 20px !important;
+    min-width: 150px !important;
+    height: 150px !important;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+
+// .fa {
+//     position: absolute !important;
+//     left: 40px !important;
+//     top: 64px !important;
+// }

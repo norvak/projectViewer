@@ -1,0 +1,78 @@
+<page-loader></page-loader>
+<div class="animated fadeIn">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header text-center" style="font-family: 'Nunito', sans-serif;">
+                    <h4><strong>Listado de Clientes</strong></h4>
+                </div>
+                <div class="card-body">
+                    <div class="row p-2">
+                        <div class="col-md-12">
+                            <div class="btn-register float-right">
+                                <button type="button" class="btn btn-success" (click)="register()">
+                                    <i class="fa fa-plus"></i>
+                                    <span class="text-hidden"> Registrar</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <table *ngIf="list" class="table table-responsive-sm table-hover table-outline mb-0">
+                        <thead class="thead-light">
+                            <tr>
+                                <th class="text-center">Empresa</th>
+                                <th class="text-center">Información Fiscal</th>
+                                <th class="text-center">Representante</th>
+                                <th class="text-center">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let list of elements | paginate: { itemsPerPage: numPage, currentPage: pages }">
+                                <td class="text-center"> {{list.name}} </td>
+                                <td class="text-center"> {{list.tax_information}} </td>
+                                <td class="text-center"> {{list.manager.name_manager}}
+                                    {{list.manager.last_name_manager}} </td>
+                                <td class="text-center">
+                                    <button type="button" class="btn btn-primary btn-sm" (click)="btnDetalles(list)">
+                                        <i class="fa fa-file-text-o"></i>
+                                        <span class="text-hidden"> Detalles</span>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <pagination-template *ngIf="list" #p="paginationApi" (pageChange)="pages=$event">
+                <nav class="text-left" style="position: relative; left: 1.1rem;">
+                    <ul class="pagination">
+                        <li class="page-item" [class.disabled]="p.isFirstPage()">
+                            <a class="page-link" (click)="p.previous()"> <span class="fa fa-angle-double-left"></span>
+                            </a>
+                        </li>
+
+                        <li *ngFor="let page of p.pages" [class.current]="p.getCurrent() === page.value" class="page-item"
+                            [ngClass]="{'active' : p.getCurrent() === page.value}">
+                            <a class="page-link" (click)="p.setCurrent(page.value)" *ngIf="p.getCurrent() !== page.value">
+                                {{ page.label }} </a>
+                            <a class="page-link" *ngIf="p.getCurrent() === page.value"> {{ page.label }} </a>
+                        </li>
+
+                        <li class="page-item" [class.disabled]="p.isLastPage()">
+                            <a class="page-link" (click)="p.next()"> <span class="fa fa-angle-double-right"></span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </pagination-template>
+
+        </div>
+
+    </div>
+</div>

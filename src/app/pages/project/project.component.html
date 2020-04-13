@@ -1,0 +1,173 @@
+<page-loader></page-loader>
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header text-center">
+          <h4><strong>Listado de Proyectos</strong></h4>
+        </div>
+        <div class="card-body">
+          <div class="row p-2">
+            <div class="col-md-12">
+              <div class="btn-register float-right">
+                <button type="button" class="btn btn-success" (click)="register()">
+                  <i class="fa fa-plus"></i>
+                  <span class="text-hidden"> Crear Proyecto</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="row" *ngIf="list" style="margin-bottom: 25px; margin-top: 20px; padding: 0px 9px 0px 0px;">
+            <div class="offset-md-8 col-md-4 input-group">
+              <input *ngIf="platfList" type="text" class="form-control"
+                     aria-label="Text input with dropdown button"
+                     id="search"
+                     [(ngModel)]="searchText"
+                     placeholder="Buscar..."
+                     list="listResul">
+              <datalist id="listResul" *ngIf="platfList">
+                      <option *ngFor="let list of listPlatform" 
+                        [value]="list.name_platform">
+                      </option>
+              </datalist>
+              <input *ngIf="nombList" type="text" class="form-control"
+                     aria-label="Text input with dropdown button"
+                     id="search"
+                     [(ngModel)]="searchText"
+                     placeholder="Buscar..."
+                     list="listResul">
+              <datalist id="listResul" *ngIf="nombList">
+                   <option *ngFor="let list of listNameProjet" 
+                           [value]="list">
+                    </option>
+              </datalist>
+              <input *ngIf="author" type="text" class="form-control" 
+                      aria-label="Text input with dropdown button"
+                      id="search"
+                      [(ngModel)]="searchText"
+                      placeholder="Buscar..." 
+                      list="listResul">      
+              <datalist id="listResul" *ngIf="author">
+                <option *ngFor="let list of listAuthor" [value]="list.name_author">
+                </option>
+              </datalist>
+              <div class="input-group-append">
+                <select id="inputState" (change)="busqueda($event)" class="form-control" style="background-color: #a09797;">
+                  <option style="background-color: #fff;" selected value='null'>Seleccione</option>
+                  <option style="background-color: #fff;" value="Recurso">Recurso</option>
+                  <option style="background-color: #fff;" value="Plataforma">Plataforma</option>
+                  <option style="background-color: #fff;" value="Nombre">Nombre</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="row col-md-12 center-row" style="margin-bottom: 10px;">
+            <div class="col-md-4" *ngFor="let list of listProyecto | search:searchText:strfilter | paginate: { itemsPerPage: numPage, currentPage: pages }">
+              <div class="card three card-tam">
+                <div class="card-header">
+                  <h4 class="corte" style="width: calc(90%);"><strong>{{ list.name }}</strong></h4>
+                  <span class="float-right lapiz-izquierda">
+                    <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+                      <i class="fa fa-pencil-square fa-lg mt-4 lapiz-margen"
+                         style="font-size: 20px;"
+                         (click)="editarProject(list)"></i>
+                    </div>
+                  </span>
+                </div>
+                <div class="card-body" style="padding-bottom: 0px !important;">
+
+                  <div class="row col-md-12 ajustar-card">
+                    <label class="control-label col-md-12" style="position: relative; right: 0.9rem; margin: 0px !important"><strong>Descripción</strong>
+                    </label>
+                    <p class="text-just block-ellipsis" [innerHTML]="list.description"></p>
+                  </div>                  
+  
+                  <div class="row ajustar-card">
+                    <label class="control-label col-md-12" style="position: relative; right: 0.9rem; margin: 0px !important"><strong>Plataforma</strong>
+                    </label>
+                    <div class="col-md-12" *ngFor="let listPlat of list.platforms" style="padding-right: 0px !important; padding-left: 0px !important;">
+                      <p class="text-just">{{ listPlat.name_platform }}</p>
+                    </div>
+                  </div>
+  
+                  <div class="row ajustar-card">
+                    <label class="control-label col-md-12" style="position: relative; right: 0.9rem; margin: 0px !important"><strong>Modulo</strong>
+                    </label>
+                    <div class="col-md-12" *ngFor="let listMod of list.modules" style="padding-right: 0px !important; padding-left: 0px !important;">
+                      <p class="text-just">{{ listMod.name_module }}</p>
+                    </div>
+                  </div>
+  
+                  <div class="row col-md-12 ajustar-card">
+                    <label class="control-label col-md-12" style="position: relative; right: 0.9rem; margin: 0px !important"><strong>Objetivo
+                        general</strong>
+                    </label>
+                    <p class="text-just corte" [innerHTML]="list.overall_objective"></p>
+                  </div>
+  
+                  <div class="row col-md-12 ajustar-card">
+                    <label class="control-label col-md-12" style="position: relative; right: 0.9rem; padding-right: 0px !important; margin: 0px !important"><strong>Objetivo
+                        específico</strong>
+                    </label>
+                    <p class="text-just corte" [innerHTML]="list.goal_objective"></p>
+                  </div>
+  
+                  <div class="row col-md-12 ajustar-card">
+                    <div class="col-md-12" *ngFor="let listAut of list.authors" style="padding-right: 0px !important; padding-left: 0px !important;">
+                      <div *ngIf="listAut.type_id==2">
+                        <label class="control-label col-md-12" style="position: relative; padding: 0px; margin: 0px;">
+                          <strong>Coordinador de ventas</strong>
+                        </label>
+                        <p class="h6" style="padding-left: 10px">{{ listAut.author.name_author }}</p>
+                      </div>
+                      <div *ngIf="listAut.type_id==3">
+                        <strong>Desarrollador</strong>
+                        <p class="h6" style="padding-left: 10px">{{ listAut.author.name_author }}</p>
+                      </div>
+                    </div>
+                  </div>
+  
+  
+  
+  
+                  <br>
+                  <div class="row btn-fond">
+                    <button type="button" class="btn btn-showcase" (click)="DetailProject(list)">Detalles</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <pagination-template *ngIf="list" #p="paginationApi" (pageChange)="pages=$event">
+            <nav class="text-left" style="position: relative; left: 1.1rem;">
+              <ul class="pagination">
+                <li class="page-item" [class.disabled]="p.isFirstPage()">
+                  <a class="page-link" (click)="p.previous()"> <span class="fa fa-angle-double-left"></span> </a>
+                </li>
+
+                <li *ngFor="let page of p.pages" [class.current]="p.getCurrent() === page.value" class="page-item"
+                  [ngClass]="{'active' : p.getCurrent() === page.value}">
+                  <a class="page-link" (click)="p.setCurrent(page.value)" *ngIf="p.getCurrent() !== page.value">
+                    {{
+                    page.label }} </a>
+                  <a class="page-link" *ngIf="p.getCurrent() === page.value"> {{ page.label }} </a>
+                </li>
+
+                <li class="page-item" [class.disabled]="p.isLastPage()">
+                  <a class="page-link" (click)="p.next()"> <span class="fa fa-angle-double-right"></span> </a>
+                </li>
+              </ul>
+            </nav>
+          </pagination-template>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

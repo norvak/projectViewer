@@ -1,0 +1,254 @@
+<page-loader></page-loader>
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header text-center" style="font-family: 'Nunito', sans-serif;">
+          <h4><strong>Detalles Vitrina</strong></h4>
+        </div>
+        <div class="card-body" *ngIf="showcase">
+          <div class="row">
+            <div class="col-md-12 d-flex">
+              <button class="btn btn-success ml-auto" (click)="edit()">
+                <i class="icon-pencil"></i> Editar </button>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-3 " style="min-width: 120px !important; min-height: 120px !important; max-height: 120px !important; 
+                       text-align: center;">
+              <img *ngIf="showcase.companies.photo" [src]="showcase.companies.photo" style="width: 100px; height: 60px; position: relative; top: 10px"
+                class="img-responsive rounded">
+            </div>
+
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group col-md-12 text-center">
+                    <label class="form-col-form-label ">
+                      <h5> <strong> {{showcase?.companies?.name }} </strong> </h5>
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-group col-md-12">
+                  <div class="col-md-12 text-center">
+                    <label class="form-col-form-label ">
+                      <h6> <strong> {{showcase?.companies?.description }} </strong> </h6>
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group col-md-12" style="text-align: justify !important;">
+                    <label class="form-col-form-label parrafo-just"><strong> {{showcase?.explanatory_text }} </strong></label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-3 center-img">
+              <img src="assets/img/fondo/Logo2.png" style="margin-top: 25px; width: 150px;" class="img-responsive">
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-2">
+            </div>
+
+            <div class="col-md-8">
+              <div class="input-group mb-3">
+                <input disabled type="text" class="form-control" [(ngModel)]="showcase.public_url" aria-label="Recipient's username"
+                  aria-describedby="button-addon2">
+                <div class="input-group-append">
+                  <button (click)="copiarEnlace()" class="btn btn-outline-showcase" type="button" id="button-addon2"><i
+                      class="fa fa-clone" aria-hidden="true"></i></button>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-2" style="padding: 0px;">
+              <h6 style="margin-top: calc(10px);">
+                <strong>
+                  Copiar enlace
+                </strong>
+              </h6>
+            </div>
+
+          </div>
+          <br>
+          <br>
+          
+          <div class="row col-md-12 center-row" style="margin-bottom: 10px;">
+            <div class="col-md-6" *ngFor="let list of showcase.projects | paginate: { itemsPerPage: numPage, currentPage: pages }">
+              <div class="card three card-tam">
+                <div class="card-header" style="font-family: 'Nunito', sans-serif;">
+                  <h4 class="corte text-just" style="width: calc(90%);"><strong>{{ list.name }}</strong></h4>
+                </div>
+                <div class="card-body" style="padding-bottom: 0px !important;">
+
+                  <div class="row col-md-12 ajustar-card">
+                    <label class="control-label col-md-12" style="position: relative; right: 0.9rem;"><strong>Descripción</strong>
+                    </label>
+                    <p class="text-just block-ellipsis" 
+                      style="padding-left: 10px; text-align: justify;"
+                      [innerHTML]="list.description"></p>
+                  </div>
+
+                  <div class="row ajustar-card">
+                    <label class="control-label col-md-12" style="position: relative; right: 0.9rem;"><strong>Plataforma</strong>
+                    </label>
+                    <div class="col-md-12" *ngFor="let listPlat of list.platforms" style="padding-right: 0px !important; padding-left: 0px !important;">
+                      <p class="text-just" style="padding-left: 10px;">{{ listPlat.name_platform }}</p>
+                    </div>
+                  </div>
+
+                  <div class="row ajustar-card">
+                    <label class="control-label col-md-12" style="position: relative; right: 0.9rem;"><strong>Modulo</strong>
+                    </label>
+                    <div class="col-md-12" *ngFor="let listMod of list.modules" style="padding-right: 0px !important; padding-left: 0px !important;">
+                      <p class="text-just" style="padding-left: 10px;">{{ listMod.name_module }}</p>
+                    </div>
+                  </div>
+
+                  <div class="row col-md-12 ajustar-card">
+                    <label class="control-label col-md-12" style="position: relative; right: 0.9rem;"><strong>Objetivo
+                        general</strong>
+                    </label>
+                    <p class="text-just corte" style="padding-left: 10px;"
+                       [innerHTML]="list.overall_objective"></p>
+                  </div>
+
+                  <div class="row col-md-12 ajustar-card">
+                    <label class="control-label col-md-12" style="position: relative; right: 0.9rem; padding-right: 0px !important;"><strong>Objetivo
+                        específico</strong>
+                    </label>
+                    <p class="text-just corte" style="padding-left: 10px;"
+                       [innerHTML]="list.goal_objective"></p>
+                  </div>
+
+                  <br>
+                  <div class="row btn-fond">
+                    <button type="button" class="btn btn-showcase" (click)="description(list)">Detalles</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12" style="display: flex; justify-content: center;">
+
+              <pagination-template #p="paginationApi" (pageChange)="pages=$event">
+                <nav class="text-left" style="position: relative;">
+                  <ul class="pagination">
+                    <li class="page-item" [class.disabled]="p.isFirstPage()">
+                      <a class="page-link" (click)="p.previous()"> <span class="fa fa-angle-double-left"></span> </a>
+                    </li>
+
+                    <li *ngFor="let page of p.pages" [class.current]="p.getCurrent() === page.value" class="page-item"
+                      [ngClass]="{'active' : p.getCurrent() === page.value}">
+                      <a class="page-link" (click)="p.setCurrent(page.value)" *ngIf="p.getCurrent() !== page.value">
+                        {{
+                        page.label }} </a>
+                      <a class="page-link" *ngIf="p.getCurrent() === page.value"> {{ page.label }} </a>
+                    </li>
+
+                    <li class="page-item" [class.disabled]="p.isLastPage()">
+                      <a class="page-link" (click)="p.next()"> <span class="fa fa-angle-double-right"></span> </a>
+                    </li>
+                  </ul>
+                </nav>
+              </pagination-template>
+            </div>
+          </div>
+
+
+          <div class="row" style="margin-top: 20px;">
+            <div class="col-md-3">
+            </div>
+
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="col-md-12 text-center">
+                    <label class="form-col-form-label "><strong> Información de contacto</strong></label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-3">
+            </div>
+          </div>
+
+          <div class="row" style="margin-top: 20px;">
+            <div class="col-md-3">
+            </div>
+
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="col-md-12 text-center">
+                    <label class="form-col-form-label "><strong> {{showcase?.companies?.manager?.name_manager }} {{
+                        showcase?.companies?.manager?.last_name_manager }}</strong></label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-3">
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-3">
+            </div>
+
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="col-md-12 text-center">
+                    <label class="form-col-form-label "><strong> Teléfono: {{showcase?.companies?.phone }}</strong></label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-3">
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-3">
+            </div>
+
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group col-md-12 text-center">
+                    <label class="form-col-form-label "><strong>{{showcase?.companies?.email}}</strong></label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-3">
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12 text-center">
+              <button class="btn btn-danger" (click)="atras()">
+                Atras</button>
+              <!-- <i class="fa fa-times"></i> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

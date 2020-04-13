@@ -1,0 +1,472 @@
+<page-loader></page-loader>
+<div class="app-body">
+  <div class="animated fadeIn" 
+       style="width: 100%">
+
+    <nav class="navbar  navbar-fixed-top bg-inverse" 
+         style="padding-bottom: 0px !important; background-color: #fff;">
+      <div class="container" 
+           *ngIf="elements" 
+           style="width: calc(90%) !important; padding-right: 0px; padding-left: 0px;">
+
+        <div class="navbar-brand" 
+             style="width: calc(7rem + 5vh) !important; float: left;">
+          <img *ngIf="photo" [src]="photo" style="width: calc(100%) !important;" class="img-responsive rounded">
+        </div>
+        <div class="row text-company" style="font-family: 'Nunito', sans-serif; width: 60%;">
+          <div class="col-md-12">
+            <label class="control-label col-md-12" style="margin: 0px;">
+              <h3><strong>{{elements?.companies?.name }} </strong> </h3>
+            </label>
+            <h5 class="parrafo-just" 
+                style="text-align: center; width: 100%; font-family: 'Montserrat', sans-serif; font-weight: 300; margin-bottom: 1rem;"><strong>{{elements?.companies?.description }}
+              </strong> </h5>
+          </div>
+        </div>
+
+
+        <ul class="navbar-nav justify-content-end"
+            style="float: right;">
+          <li class="nav-item dropdown" dropdown placement="bottom right">
+            <img src="assets/img/fondo/Logo2.png" class="img-avatar" style="width: calc(12rem);">
+          </li>
+        </ul>
+
+      </div>
+    </nav>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card" 
+             *ngIf="view"  
+             style=" background-color: #f1f1f100;">
+          <div class="card-header" 
+               style="border-bottom: none;">
+            <h3 class="corte" 
+                style="margin-bottom: 0px; font-family: 'Nunito', sans-serif;">
+              <strong>{{ project.name }}</strong></h3>
+          </div>
+          <div class="card-body">
+
+            <div class="row conf-r">
+
+              <div class="col-md-12" style="display: flex; justify-content: center;">
+                <div class="card card-color three">
+                  <div *ngIf="video" class="card-body" style="padding: 0px !important;">
+
+                    <div  class="row" style="margin-top: 30px; margin-left: 20px; margin-right: 20px;">    
+                        <div *ngIf="videoView" class="col-md-12">
+                            <video  id="video" 
+                                   controls 
+                                   [src]='video.url'
+                                   controlslist="nodownload"
+                                   style="width: calc(100%);">
+                            </video>
+                          </div>
+                    </div>
+
+                    <div class="row tam"   
+                         *ngIf="viewPorta"
+                         style="padding-top: 20px; 
+                                padding-right: 50px; 
+                                justify-content: center;">
+                      <label class="control-label col-md-12"
+                             style="padding-left: 0; margin: 0;"> 
+                        <strong>
+                          Multimedia del proyecto
+                        </strong>               
+                      </label>
+                      <div *ngIf="portafolio.length > 4" class="col-md-12">
+                        <span class="fa fa-angle-left arrow-left"></span>
+                        <span class="fa fa-angle-right arrow-right"></span>
+                      </div>
+                      
+                         <div class="outer" 
+                              style="height: 10rem; width: 92%">
+                           <div *ngFor="let list of portafolio">
+                            <div class="thumb">
+                                  <div class="overlay"> 
+                                     <img class="thumbnail" 
+                                          src={{list.url}}>   
+                                      <a class="playWrapper"
+                                          (click)="showVideoSelect(list.videoId)">  
+                                      </a> 
+                                      <p class="col-md-12"
+                                          id="contenido" 
+                                        style="padding: 0px 0px 0px 0px; 
+                                               position: absolute; top: 125px;">
+                                       <strong>
+                                        {{list.name}}
+                                      </strong>
+                                      </p>
+                                </div> 
+                            </div>       
+                          </div>                          
+                         </div>                                         
+                    </div>
+
+                    <div class="row" style="margin-top: 30px;">
+                      <div class="col-md-7">
+                        <div class="row">
+                          <div class="col-md-12 tam" style="padding-top: 20px;">
+                            <label class="control-label col-md-12" style="position: relative; right: 0.9rem;"><strong>Descripción</strong>
+                            </label>
+                            <p class="text-just" style="padding-left: 10px; white-space: normal; text-align: justify;">{{
+                              project.description }}</p>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-md-12 tam" *ngFor="let listPlatf of project.platforms" style="padding-top: 0px;">
+                            <label class="control-label col-md-12 " style="position: relative; right: 0.9rem;"><strong>Plataforma</strong></label>
+                            <p class="text-just" style="padding-left: 10px;">{{ listPlatf.name_platform }}</p>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-md-12 tam" *ngFor="let listMod of project.modules" style="padding-top: 0px;">
+                            <label class="control-label col-md-12 " style="position: relative; right: 0.9rem;"><strong>Modulo</strong></label>
+                            <p class="text-just" style="padding-left: 10px;">{{ listMod.name_module }}</p>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-md-12 tam">
+                            <label class="control-label col-md-12 " style="position: relative; right: 0.9rem;"><strong>Objetivo
+                                general</strong>
+                            </label>
+                            <p class="text-just" style="padding-left: 10px; text-align: justify;"
+                            [innerHTML]="project.overall_objective"></p>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-md-12 tam">
+                            <label class="control-label col-md-12" style="position: relative; right: 0.9rem;"><strong>Objetivo
+                                específico</strong>
+                            </label>
+                            <p class="text-just" 
+                              style="padding-left: 10px; text-align: justify;"
+                              [innerHTML]="project.goal_objective">
+                              </p>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-12 tam">
+                            <label class="control-label col-md-12" style="position: relative; right: 0.9rem;"><strong>Cantidad
+                                de horas</strong>
+                            </label>
+                            <p style="padding-left: 10px;">{{ project.quantity_hours }} hrs</p>
+                          </div>
+                        </div>
+
+                        <div class="row" *ngIf="elements.view_prices">
+                          <div class="col-md-12 tam">
+                            <label class="control-label col-md-12" style="position: relative; right: 0.9rem;"><strong>Precio</strong>
+                            </label>
+                            <p style="padding-left: 10px;">{{project.price}} {{project.currency}}</p>
+                          </div>
+                        </div>    
+
+                      </div>
+                      <div class="col-md-5 img-row">
+                        <div class="row" *ngIf="FotoView" style="margin-top: 20px;">
+                          <div class="col-md-2"></div>
+                          <div class="col-md-8" style="text-align: center;">
+                            <label class="control-label col-md-12 ">
+                              <strong>Galeria</strong></label>
+                            <i class="fa fa-file-image-o rounded ico-tam" style="background-color: #fff0; left: 0px; color: #c7a030; padding-left: 0px;"
+                              (click)="childModal.show()" aria-hidden="true"></i>                          
+                          </div>
+                          <div class="col-md-2"></div>
+                        </div>
+
+                      <!--   <div class="row" style="margin-top: 30px;" *ngIf="videoView">
+                          <div class="col-md-2"></div>
+                          <div class="col-md-8" style="text-align: center;">
+                            <label class="control-label col-md-12">
+                              <strong>Video</strong>
+                            </label>
+                            <i class="fa fa-film rounded ico-tam" style="background-color: #fff0; left: 0px; color: #c7a030; padding-left: 0px;"
+                              (click)="videoModal.show()" aria-hidden="true"></i>
+                          </div>
+                          <div class="col-md-2"></div>
+                        </div> -->
+
+                        <div class="row ajustar-card" *ngIf="charView" style="padding-left: 5px !important; margin-top: 30px;">
+                          <div class="col-md-2"></div>
+                          <div class="col-md-8" style="padding-right: 0px; padding-left: 0px; text-align: center;">
+                            <label class="control-label col-md-12" style="position: relative; padding-right: 0px; padding-left: 0px;">
+                              <strong>Project Charter</strong></label>
+                            <div class="col-md-12 modal-galeria">
+                              <a style="color: #c39614d9;" [href]="projectCharter.url" target="_blank">
+                                <i class="fa fa-file-powerpoint-o ico-tam" aria-hidden="true"></i>
+                              </a>
+                            </div>
+                          </div>
+                          <div class="col-md-2"></div>
+                        </div>
+
+                        <div class="row ajustar-card" *ngIf="slidView" style=" padding-left: 5px !important; margin-top: 20px;">
+                          <div class="col-md-2"></div>
+                          <div class="col-md-8" style="padding-right: 0px; padding-left: 0px; text-align: center;">
+                            <label class="control-label col-md-12" 
+                                   style="position: relative; padding-right: 0px; padding-left: 0px;">
+                              <strong>Slideshow</strong>
+                            </label>
+                            <div class="col-md-12 modal-galeria">
+                              <a style="color: #c39614d9;" 
+                                 [href]="slideshow.url" 
+                                 target="_blank">
+                                <i class="fa fa-file-pdf-o ico-tam" 
+                                   style="left: 0px;" 
+                                   aria-hidden="true"></i>
+                              </a>
+                            </div>
+                          </div>
+                          <div class="col-md-2"></div>
+                        </div>
+
+                        <div class="row ajustar-card" *ngIf="methView" style=" padding-left: 5px !important; margin-top: 20px;">
+                          <div class="col-md-2"></div>
+                          <div class="col-md-8" style="padding-right: 0px; padding-left: 0px; text-align: center;">
+                            <label class="control-label col-md-12" 
+                                   style="position: relative; padding-right: 0px; padding-left: 0px;">
+                              <strong>Metodología</strong>
+                            </label>
+                            <div class="col-md-12 modal-galeria">
+                              <a style="color: #c39614d9;" 
+                                 [href]="methodology.url" 
+                                 target="_blank">
+                                <i class="fa fa-file-pdf-o ico-tam" 
+                                   style="left: 0px;" 
+                                   aria-hidden="true"></i>
+                              </a>
+                            </div>
+                          </div>
+                          <div class="col-md-2"></div>
+                        </div>
+                      </div>
+                    </div>
+                    <br>
+                    <br>                  
+                  </div>
+                </div>
+              </div>
+             
+            </div>
+          </div>
+          <br>
+          <br>
+          <div class="row">
+            <div class="col-md-12" style="display: flex; justify-content: center;">
+              <div class="alert alert-dark three" role="alert" style="width: calc(76%); border-radius: 0.25rem;">
+                <div class="container">
+                  <div class="row">
+                    <div class="col-md-8">
+                      <p style="text-align: center;"><strong>Observación</strong></p>
+                      <p style="white-space: normal; text-align: justify;">
+                        <strong>*</strong> ShowCase representa un repositorio de proyectos en la nube sobre una
+                         estrategia enfocada a desarrollos con casos de éxito; consolidando soluciones IT previamente
+                         desarrolladas y que han tenido un gran impacto organizacional luego de su implementación con
+                         un gran nivel de adaptabilidad y optimización para sus procesos de negocios. De interesarle
+                         alguna de nuestras soluciones estaríamos a la orden para realizar demostraciones en vivo.<br>
+                        <strong>*</strong> Una vez aprobada la venta se entragará el diseño formal del producto para su
+                        aprobación y
+                        definición del alcance,
+                        en caso de requerir una mejora fuera del alcance inicial, la misma se estimará y se solicitará
+                        su aprobación
+                        para dar la atención correspondiente.<br>
+                        <strong>*</strong> Culminada la adaptación del proyecto se entregará documentación funcional,
+                        técnica, manual de
+                        usuario, a su vez se otorgará un apalancamiento y soporte post productivo <strong>"definir
+                          tiempos"</strong>.</p>
+                    </div>
+                    <div class="col-md-4" style="white-space: normal; text-align: center; align-content: center; display: grid;">
+                      <div class="col-md-12">
+                        <p>
+                          Solicita una presentación en vivo con nuestros consultores totalmente <strong>gratis</strong>.</p>
+                      </div>
+                      <div class="col-md-12">
+                        <button type="button" (click)="parentModal.show()" class="btn btn-warning" style="border-radius: calc(100%); height: calc(100px);"><strong>SOLICITAR</strong></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> 
+  </div>
+</div>
+
+
+<div class="modal fade" bsModal #parentModal="bs-modal" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header" style=" background-color: #ffffff;">
+        <h4 id="dialog-nested-name1" class="modal-title pull-left">Solicitud</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="parentModal.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style=" background-color: #ffffff;">
+        <div class="row">
+          <div class="col-md-12">
+            <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="form-horizontal was-validated">
+              <div class="container">
+
+                <div class="row">
+                  <div class="col-md-8">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="control-label col-md-12 color-text-name" for="name_request" style="position: relative; right: 0.9rem;">Nombre y apellido</label>
+                          <input formControlName="name" maxlength=80 placeholder="Nombre y apellido*" type="text" class="form-control"
+                            id="name">
+                        </div>
+                      </div>
+
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="control-label col-md-12 color-text-name" for="company_request" style="position: relative; right: 0.9rem;">Empresa</label>
+                          <input type="text" formControlName="company" maxlength=80 placeholder="Nombre de la empresa*"
+                            class="form-control" id="company">
+                        </div>
+                      </div>
+                    </div>
+
+
+                    <div class="row" style="margin-top: 20px;">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="control-label col-md-12 color-text-name" for="phone" style="position: relative; right: 0.9rem;">Teléfono</label>
+                          <input type="text" formControlName="phone" maxlength=80 placeholder="Teléfono*" class="form-control"
+                            id="phone">
+                        </div>
+                      </div>
+
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="control-label col-md-12 color-text-name" for="email" style="position: relative; right: 0.9rem;">Email</label>
+                          <input type="text" formControlName="email" maxlength=80 placeholder="Email*" class="form-control"
+                            name="email" id="email">
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row" style="margin-top: 20px;">
+
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label class="control-label col-md-12" for="consulta" style="position: relative; right: 0.9rem;">Consulta</label>
+                          <textarea type="text" formControlName="description" maxlength=2500 id="consulta" rows="5"
+                            class="form-control">
+                                      </textarea>
+                        </div>
+                      </div>
+                      <div class="col-md-4"></div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+
+                    <div class="row" style="margin-top: 20px;">
+                      <div class="col-md-12 text-center">
+                        <label class="form-col-form-label color-text"><strong>Información de contacto</strong></label>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-12 text-center">
+                        <label class="form-col-form-label color-text-name">
+                          {{elements?.companies?.manager?.name_manager
+                          }} {{
+                          elements?.companies?.manager?.last_name_manager }}</label>
+                      </div>
+                    </div>
+
+
+                    <div class="row">
+                      <div class="col-md-12 text-center">
+                        <label class="form-col-form-label color-text"><strong>Teléfono: </strong>
+                          {{elements?.companies?.phone }}</label>
+                      </div>
+                    </div>
+
+
+                    <div class="row">
+                      <div class="col-md-12 text-center">
+                        <label class="form-col-form-label color-text-name">{{elements?.companies?.email}}</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+              </div>
+              <div class="card-footer" style="margin: 40px 1px 20px 1px; display: flex; justify-content: center;">
+                <div class="row">
+                  <button type="submit" class="btn btn-showcase">Solicitar</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div bsModal #childModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name2">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header" style=" background-color: #ffffff; ">
+        <h4 id="dialog-sizes-name1" class="modal-title pull-left">Galeria</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="childModal.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style=" background-color: #ffffff; display: block; max-width: calc(100%)">
+        <carousel [interval]="myInterval"  [(activeSlide)]="activeSlideIndex">
+          <slide *ngFor="let slide of images; let index=index">
+            <img [src]="slide.url" 
+                 alt="image slide"  
+                 style="min-width: calc(100%) !important; 
+                        max-width: calc(30vw) !important;
+                        min-height: calc(30rem) !important; 
+                        max-height: calc(30rem) !important;">
+          </slide>
+        </carousel>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- 
+<div bsModal #videoModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name2">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header" style=" background-color: #ffffff;">
+        <h4 id="dialog-sizes-name1" class="modal-title pull-left">Video</h4>
+        <button type="button" class="close pull-right" aria-label="Close" onclick="document.getElementById('video').pause();"
+          (click)="videoModal.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style=" background-color: #ffffff;">
+        <div class="row" style="text-align: center;">
+
+          <div class="col-md-12" *ngFor="let listMulti of this.project.multimedias">
+            <video *ngIf="listMulti.extension == 'mp4' && listMulti.type == 'video'" id="video" controls controlslist="nodownload"
+              style="max-width: calc(100%);">
+              <source [src]='video.url'>
+            </video>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->

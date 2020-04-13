@@ -1,0 +1,247 @@
+<page-loader></page-loader>
+<div class="animated fadeIn">
+      <div class="row">
+          <div class="col-md-12">
+              <div class="card">
+                <div class="card-header text-center"
+                     style="font-family: 'Nunito', sans-serif;">
+                  <h4><strong>Autores / Asignaciones</strong></h4>
+                </div>
+                <div class="card-body">
+                  <div  class="row p-2">
+                    <div class="col-md-6"
+                         style="display: flex; justify-content: center;">
+                        <i class="fa fa-users rounded ico-tam" style="background-color: #fff0; left: 0px; color: #c7a030; padding-left: 0px; font-size: 4rem;"
+                        (click)="childModal.show()"  aria-hidden="true"></i>    
+                    </div>                   
+                      <div class="col-md-6"                          
+                           style="display: flex; justify-content: center;">
+                           <i class="fa fa-sitemap rounded ico-tam" style="background-color: #fff0; left: 0px; color: #c7a030; padding-left: 0px; font-size: 4rem;"
+                           (click)="asigModal.show()"  aria-hidden="true"></i>    
+                          
+                      </div>
+
+                      <label class="control-label col-md-6 col-sm-4 col-xs-12"
+                      style="position: relative; right: 0.6rem; text-align: center; padding-right: 0px;">
+                      <strong>Autores de proyectos</strong>
+                      </label>
+                      <label class="control-label col-md-6 col-sm-4 col-xs-12"
+                      style="position: relative; right: 0.6rem; text-align: center; padding-right: 0px;">
+                      <strong>Cargos de proyectos</strong>
+                      </label> 
+                  </div>                   
+                </div>
+            </div>
+          </div>
+        </div>
+</div>
+
+
+
+<div bsModal #childModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name2">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header" style=" background-color: #ffffff; ">
+          <h4 id="dialog-sizes-name1" class="modal-title pull-left">Autores</h4>
+          <button type="button" 
+                  class="close pull-right" 
+                  aria-label="Close" 
+                  (click)="childModal.hide()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" 
+             style=" background-color: #ffffff; display: block; max-width: calc(100%)">
+            <div class="row p-2">
+                <div class="col-md-6">
+                    <div class="form-group col-md-8"
+                         style="float: right;" >
+                        <label class="control-label col-md-12 col-sm-4 col-xs-12"
+                               style="position: relative; right: 0.6rem;">
+                                Nombre y Apellido
+                        </label>
+                        <input maxlength=80 
+                               [(ngModel)]="name_author"
+                               type="text" 
+                               class="form-control" 
+                               placeholder="Nombre y Apellido">                                             
+                    </div>          
+                </div>
+                <div class="col-md-6" 
+                     style="display: inline-block; line-height: 80px; text-align: center;">
+                    <button class="btn btn-success" 
+                             style="top: 4px; position: relative;"
+                        (click)="saveAuthor(name_author)">
+                        <i class="fa fa-save"></i> Registrar
+                    </button> 
+                </div>
+            </div>
+      
+            <div class="row">
+                <div class="col-md-12"
+                        *ngIf="listAuthor"
+                            style="display: flex; justify-content: center;">
+                            <table  class="table table-responsive-sm table-hover table-outline mb-10"
+                                style="width: 80%;">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th class="text-center">Nombre y Apellido</th>
+                                        <th class="text-center">Acción</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let list of elementAuthor ">
+                                        <td class="text-center"> {{ list.name_author }} </td>
+                                        <td class="text-center">
+                                            <div class="btn-group" role="group" aria-label="Basic example">
+                                                <button type="button" class="btn btn-primary btn-sm" (click)="btnEdit(list)">
+                                                    <i class="icon-pencil"></i>
+                                                    <span class="text-hidden"> Editar</span>
+                                                </button>
+
+                                                <!-- <button style="margin-left: 5px;"
+                                                        type="button" 
+                                                        class="btn btn-primary btn-sm" 
+                                                        (click)="btnDelet(list)">
+                                                        <i class="fa fa-trash"></i>
+                                                    <span class="text-hidden"> Eliminar</span>
+                                                </button> -->
+                                            </div>                                    
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                </div>
+                <div class="row">
+                        <div class="col-md-12"
+                            style="justify-content: center; display: flex;">
+                            <pagination-template *ngIf="listAuthor" #p="paginationApi" (pageChange)="pages=$event">
+                                <nav class="text-left" style="position: relative; left: 1.1rem;">
+                                    <ul class="pagination">
+                                        <li class="page-item" [class.disabled]="p.isFirstPage()">
+                                            <a class="page-link" (click)="p.previous()"> <span class="fa fa-angle-double-left"></span>
+                                            </a>
+                                        </li>
+                
+                                        <li *ngFor="let page of p.pages" [class.current]="p.getCurrent() === page.value" class="page-item"
+                                            [ngClass]="{'active' : p.getCurrent() === page.value}">
+                                            <a class="page-link" (click)="p.setCurrent(page.value)" *ngIf="p.getCurrent() !== page.value">
+                                                {{ page.label }} </a>
+                                            <a class="page-link" *ngIf="p.getCurrent() === page.value"> {{ page.label }} </a>
+                                        </li>
+                
+                                        <li class="page-item" [class.disabled]="p.isLastPage()">
+                                            <a class="page-link" (click)="p.next()"> <span class="fa fa-angle-double-right"></span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                        </pagination-template>        
+                    </div>        
+                </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+  <div bsModal #asigModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name2">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header" style=" background-color: #ffffff; ">
+          <h4 id="dialog-sizes-name1" class="modal-title pull-left">Autores</h4>
+          <button type="button" 
+                  class="close pull-right" 
+                  aria-label="Close" 
+                  (click)="asigModal.hide()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" 
+             style=" background-color: #ffffff; display: block; max-width: calc(100%)">
+             <div class="row p-2">
+                    <div class="col-md-6">
+                        <div class="form-group col-md-8"
+                             style="float: right;" >
+                            <label class="control-label col-md-12 col-sm-4 col-xs-12"
+                                   style="position: relative; right: 0.6rem;">
+                                   Nombre del cargo
+                            </label>
+                            <input maxlength=80 
+                                   [(ngModel)]="name"
+                                   type="text" 
+                                   class="form-control" 
+                                   placeholder="Nombre del cargo">                                             
+                        </div>          
+                    </div>
+                    <div class="col-md-6" 
+                         style="display: inline-block; line-height: 80px;  text-align: center;" >
+                        <button class="btn btn-success" 
+                                 style="top: 4px; position: relative;"
+                            (click)="saveTypeAuthor(name)">
+                            <i class="fa fa-save"></i> Registrar
+                        </button> 
+                    </div>
+                </div>
+             <div class="col-md-12"
+             *ngIf="listType"
+                   style="display: flex; justify-content: center;">
+               
+                   <table class="table table-responsive-sm table-hover table-outline mb-10"
+                          style="width: 75%;">
+                        <thead class="thead-light">
+                            <tr>
+                                <th class="text-center">Tipos de Cargos</th>
+                                <th class="text-center">Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let list of elementType | paginate: { itemsPerPage: numPage, currentPage: pages }">
+                                <td class="text-center"> {{ list.name }} </td>
+                                <td class="text-center">
+                                    <button type="button" class="btn btn-primary btn-sm" (click)="btnEditType(list)">
+                                    <i class="icon-pencil"></i>
+                                    <span class="text-hidden"> Editar</span>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+
+
+
+             </div>
+
+             <div class="row">
+                <div class="col-md-12"
+                    style="justify-content: center; display: flex;">
+                    <pagination-template *ngIf="listAuthor" #p="paginationApi" (pageChange)="pages=$event">
+                        <nav class="text-left" style="position: relative; left: 1.1rem;">
+                            <ul class="pagination">
+                                <li class="page-item" [class.disabled]="p.isFirstPage()">
+                                    <a class="page-link" (click)="p.previous()"> <span class="fa fa-angle-double-left"></span>
+                                    </a>
+                                </li>
+        
+                                <li *ngFor="let page of p.pages" [class.current]="p.getCurrent() === page.value" class="page-item"
+                                    [ngClass]="{'active' : p.getCurrent() === page.value}">
+                                    <a class="page-link" (click)="p.setCurrent(page.value)" *ngIf="p.getCurrent() !== page.value">
+                                        {{ page.label }} </a>
+                                    <a class="page-link" *ngIf="p.getCurrent() === page.value"> {{ page.label }} </a>
+                                </li>
+        
+                                <li class="page-item" [class.disabled]="p.isLastPage()">
+                                    <a class="page-link" (click)="p.next()"> <span class="fa fa-angle-double-right"></span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                </pagination-template>        
+            </div>        
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>

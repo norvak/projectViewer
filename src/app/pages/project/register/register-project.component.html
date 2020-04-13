@@ -1,0 +1,930 @@
+<page-loader></page-loader>
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div *ngIf="!updateProject" class="card-header text-center">
+          <h4><strong>Registrar Proyecto</strong></h4>
+        </div>
+        <div *ngIf="updateProject" class="card-header text-center">
+          <h4> <strong>Detalles Proyecto</strong></h4>
+        </div>
+        <div class="card-body">
+
+          <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="form-horizontal was-validated">
+
+            <div class="row">
+              <div class="col-md-12 d-flex">
+                <button *ngIf="updateProject && !editProject" class="btn btn-success ml-auto" (click)="edit()">
+                  <i class="icon-pencil"></i> Editar </button>
+              </div>
+
+              <div class="col-md-2">
+              </div>
+              <div class="form-group col-md-4 distancia">
+                <label class="control-label col-md-12 col-sm-4 col-xs-12" style="position: relative; right: 0.6rem;">Nombre
+                  del proyecto
+                </label>
+                <input maxlength=80 formControlName="name" [ngClass]="{ 'is-invalid': submitted && validate.name.errors }"
+                  type="text" class="form-control" placeholder="Nombre del proyecto *" required>
+                <div *ngIf="submitted && validate.name.errors" class="invalid-feedback">
+                  <div *ngIf="validate.name.errors.required">El nombre es requerido
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group col-md-4 distancia">
+                <label class="control-label col-md-12 col-sm-4 col-xs-12" style="position: relative; right: 0.6rem;">Fecha
+                  de registro</label>
+                <input name="creation_date" formControlName="creation_date" [bsConfig]="datePickerConfig" [ngClass]="{ 'is-invalid': submitted && validate.creation_date.errors }"
+                  type="text" class="form-control" placeholder="Fecha de registro *" bsDatepicker autocomplete="off"
+                  required>
+                <div *ngIf="submitted && validate.creation_date.errors" class="invalid-feedback">
+                  <div *ngIf="validate.creation_date.errors.required">La fecha es requerida</div>
+                </div>
+              </div>
+              <div class="col-md-2">
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-2">
+              </div>
+              <div class="form-group col-md-4 distancia">
+                <label class="control-label col-md-12 col-sm-4 col-xs-12" style="position: relative; right: 0.6rem;">Descripción</label>
+                <textarea maxlength=2500 type="text" rows="5" formControlName="description" 
+                  type="text" class="form-control">
+                </textarea>
+              </div>
+
+              <div class="form-group col-md-4 distancia">
+                <label class="control-label col-md-12 col-sm-4 col-xs-12" style="position: relative; right: 0.6rem;">Nombre
+                  del cliente
+                </label>
+                <span class="float-right lapiz-izquierda" *ngIf="customer">
+                  <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+                    <i tooltip="Permite editar el cliente original" class="fa fa-pencil-square fa-lg" style="font-size: calc(20px);"
+                      (click)="editarCustomer()"></i>
+                  </div>
+                </span>
+                <input maxlength=80 autocomplete="off" type="text" formControlName="original_customer" id="name_client"
+                  class="form-control" id="name_client" name="name_client" placeholder="Cliente original" list="listClient">
+                <datalist id="listClient">
+                  <option *ngFor="let listCli of listClient" [value]="listCli.name">
+                  </option>
+                </datalist>
+
+              </div>
+              <div class="col-md-2">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-2">
+              </div>
+
+              <div class="form-group col-md-4 distancia">
+                <label class="control-label col-md-12 col-sm-4 col-xs-12" style="position: relative; right: 0.6rem;">Objetivo
+                  general
+                </label>
+                <textarea maxlength=2500 type="text" rows="5" formControlName="overall_objective" [ngClass]="{ 'is-invalid': submitted && validate.overall_objective.errors }"
+                  type="text" class="form-control" required>
+                                      </textarea>
+                <div *ngIf="submitted && validate.overall_objective.errors" class="invalid-feedback">
+                  <div *ngIf="validate.overall_objective.errors.required">El objetivo general es
+                    requerido
+
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group col-md-4 distancia">
+                <label class="control-label col-md-12 col-sm-4 col-xs-12" style="position: relative; right: 0.6rem;">Objetivo
+                  específico
+                </label>
+                <textarea maxlength=2500 type="text" formControlName="goal_objective" rows="5" [ngClass]="{ 'is-invalid': submitted && validate.goal_objective.errors }"
+                  type="text" class="form-control" required>
+                                      </textarea>
+                <div *ngIf="submitted && validate.goal_objective.errors" class="invalid-feedback">
+                  <div *ngIf="validate.goal_objective.errors.required">El objetivo específico es
+                    requerido
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-2">
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-2">
+              </div>
+
+              <div class="form-group col-md-4 distancia">
+                <label class="control-label col-md-12 col-sm-4 col-xs-12" style="position: relative; right: 0.6rem;">Total
+                  horas
+                  de desarrollo</label>
+                <input min=0 max=999999999 formControlName="quantity_hours" type="number" class="form-control"
+                  placeholder="Cantidad de horas *" required>
+                <div *ngIf="submitted && validate.quantity_hours.errors" class="invalid-feedback">
+                  <div *ngIf="validate.quantity_hours.errors.required">Las cantidad horas es
+                    requerida
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group col-md-4 distancia">
+                <div class="input-group">
+                  <label class="control-label col-md-12" style="position: relative; right: 0.6rem;">Precio
+                    de venta</label>
+                  <input min=0 max=999999999 type="number" placeholder="Precio de venta*" formControlName="price" class="form-control"
+                    aria-label="Text input with dropdown button" style="border-radius: 5px;" required>
+                  <div class="input-group-append">
+                    <select [(ngModel)]="selectedType" tooltip="Seleccione un tipo de moneda" formControlName="currency"
+                      id="inputState" class="form-control" style=" margin-left: 8px; width: 60px;">
+                      <option value='$'>$</option>
+                      <option value='€'>€</option>
+                      <option value='S/.'>S/.</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-2">
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-2">
+              </div>
+              <div class="col-md-8">
+
+                <div formArrayName="authors">
+                  <div *ngFor="let list of initAuthors.controls; let i=index">
+                    <div [formGroupName]="i">
+                      <div class="row">
+                        <div class="form-group col-md-6">
+                          <label class="control-label col-md-12" style="position: relative;right: 0.6rem;">Nombre y
+                            apellido completo
+                          </label>
+                          <input maxlength=80 class="form-control" formControlName="name_author" list="authorList" type="text"
+                            placeholder="Participante del proyecto*" required />
+                          <datalist id="authorList">
+                            <option *ngFor="let list of listAuthor">
+                              {{ list.name_author }}
+                            </option>
+                          </datalist>
+                        </div>
+
+                        <div class="form-group col-md-6">
+
+                          <label class="control-label col-md-12" style="position: relative; right: 0.6rem;">Cargo
+                            asignado
+                          </label>
+                          <div class="btn-group" role="group" style="width: calc(100%) !important;">
+                            <select class="form-control" formControlName="type_id">
+                              <option *ngFor="let list of listAuthorType" [value]="list.id">
+                                {{ list.name }}</option>
+                            </select>
+
+                            <button class="btn btn-danger ml-auto" [disabled]="deleteAuthors" style="margin-left: 14px !important;"
+                              (click)="deleteAuthor(i)">
+                              <i class="fa fa-times"></i>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-2">
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+              </div>
+              <div class="col-md-4" style="margin-top: 15px;">
+                <div class="input-group-append float-right">
+                  <label class="control-label" style="margin-left: 14px !important;">Agregar otro participante
+                  </label>
+                  <button class="btn btn-success " type="button" [disabled]="deleteAuthors" (click)="addAuthors()" style="margin-left: 10px !important;">
+                    <i class="fa fa-plus"></i>
+                  </button>
+                </div>
+
+              </div>
+              <div class="col-md-2">
+              </div>
+            </div>
+
+
+            <div class="row">
+              <div class="col-md-2">
+              </div>
+              <div class="col-md-4">
+                <div formArrayName="platforms" *ngFor="let item of createPlatforms.controls; let i = index;">
+                  <div [formGroupName]="i">
+                    <label class="control-label col-md-12" style="position: relative; right: 0.6rem;">Plataforma</label>
+                    <input maxlength=80 class="form-control" formControlName="name_platform" list="platformList" type="text"
+                      placeholder="Plataforma *" required />
+                    <datalist id="platformList">
+                      <option *ngFor="let list of listPlatform">
+                        {{ list.name_platform }}
+                      </option>
+                    </datalist>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-4 distancia">
+                <div formArrayName="modules" *ngFor="let item of createModules.controls; let i = index;">
+                  <div [formGroupName]="i">
+                    <label class="control-label col-md-12" style="position: relative; right: 0.6rem;">Modulo</label>
+                    <input maxlength=80 class="form-control" formControlName="name_module" list="moduleList" type="text"
+                      placeholder="Modulo *" required />
+                    <datalist id="moduleList">
+                      <option *ngFor="let list of listModule">
+                        {{ list.name_module }}
+                      </option>
+                    </datalist>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-2">
+              </div>
+            </div>
+
+            <div class="row" 
+                 style="margin-top: 35px;">              
+              <div class="offset-md-2 col-md-8">
+                <div class="row" 
+                     style="padding: 0px 0px 0px 0px;">
+                  <div class="col-md-4" 
+                       style="padding: 0px 0px 0px 0px; text-align: center; margin-bottom: 1.8rem !important;">
+                    <label class="control-label col-md-12" 
+                           style="padding: 0px 0px 0px 0px;">
+                           Código fuente 
+                    </label>                  
+                    <label for="archivo_source">
+                      <i class="fa fa-file-pdf-o" 
+                         style="background-color: #fff0; font-size: calc(3rem); color: #474746; padding-left: 0px;"                     
+                         aria-hidden="true">
+                      </i>   
+                    </label>
+                    <input [disabled]="documentEdit" 
+                           type="file" 
+                           id="archivo_source" 
+                           name="archivo_source" 
+                           accept="application/x-rar-compressed,application/octet-stream,application/zip, application/octet-stream, application/x-zip-compressed, multipart/x-zip"
+                           (change)="onFileChangeSource($event.target.files)">                  
+                    <div class="row" 
+                         *ngIf="uploadCodeSource">                     
+                      <div class="offset-md-2 col-md-8">
+                        <progressbar class="progress-striped active"
+                                    [value]="progressCodeSource" 
+                                    type="success">
+                          <i>{{progressCodeSource}}%</i>
+                        </progressbar>
+                      </div>                      
+                    </div>                  
+                    <label *ngIf="codeSource" 
+                           class="control-label col-md-12 corte" 
+                           style="position: relative; right: 0.6rem;">
+                      {{ urlCodeSource.name }}
+                    </label>
+                  </div>
+
+                  <div class="col-md-4"
+                       style="padding: 0px 0px 0px 0px; text-align: center; margin-bottom: 1.8rem !important;">
+                    <label class="control-label col-md-12" 
+                           style="padding: 0px 0px 0px 0px; position: relative; right: 0.6rem;">
+                           Documento funcional 
+                    </label>                  
+                    <label for="archivo_functional">
+                      <i class="fa fa-file-pdf-o" 
+                         style="background-color: #fff0; font-size: calc(3rem); color: #474746; padding-left: 0px;"                     
+                         aria-hidden="true">
+                      </i>   
+                    </label>
+                    <input [disabled]="documentEdit" 
+                           type="file" 
+                           id="archivo_functional" 
+                           name="archivo_functional"
+                          (change)="onFileChangeFunctional($event.target.files)" 
+                          accept="application/pdf">
+                    <div class="row" 
+                         *ngIf="uploadFunctional">
+                      <div class="offset-md-2 col-md-8">
+                        <progressbar class="progress-striped active" 
+                                     [value]="progressFunctional" 
+                                     type="success">
+                          <i> {{progressFunctional}}%</i>
+                        </progressbar>
+                      </div>
+                    </div>
+                    <label *ngIf="functional" 
+                           class="control-label col-md-12 corte"
+                           style="position: relative; right: 0.6rem;">
+                           {{ urlFunctional.name }}
+                    </label>
+                  </div>
+
+                  <div class="col-md-4" 
+                       style="padding: 0px 0px 0px 0px; text-align: center; margin-bottom: 0px !important;">
+                    <label class="control-label col-md-12 " 
+                           style="padding: 0px 0px 0px 0px; position: relative; right: 0.6rem;">
+                           Documento técnico 
+                    </label>                  
+                    <label for="archivo_technical">
+                      <i class="fa fa-file-pdf-o" 
+                         style="background-color: #fff0; font-size: calc(3rem); color: #474746; padding-left: 0px;"                     
+                         aria-hidden="true">
+                      </i>   
+                    </label>
+                    <input [disabled]="documentEdit"
+                           type="file" 
+                           id="archivo_technical" 
+                           name="archivo_technical"
+                           (change)="onFileChangeTechnical($event.target.files)" 
+                           accept="application/pdf">
+                    <div class="row" 
+                         *ngIf="uploadTechnical">
+                      <div class="offset-md-2 col-md-8">
+                        <progressbar class="progress-striped active"
+                                     [value]="progressTechnical" 
+                                     type="success">
+                          <i>{{progressTechnical}}%</i>
+                        </progressbar>
+                      </div>
+                    </div>
+                    <label *ngIf="technical" 
+                           class="control-label col-md-12 corte">
+                           {{ urlTechnical.name }}
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row" 
+                 style="margin-top: 35px;">
+              <div class="offset-md-2 col-md-8">
+                <div class="row">
+                  <div class="col-md-4" 
+                       style="padding: 0px 0px 0px 0px; text-align: center; margin-bottom: 1.8rem !important;">
+                    <label class="control-label col-md-12"
+                           style="padding: 0px 0px 0px 0px;">
+                           Manual de usuario 
+                    </label>                    
+                    <label for="archivo_manual">
+                      <i class="fa fa-file-pdf-o" 
+                         style="background-color: #fff0; font-size: calc(3rem); color: #474746; padding-left: 0px;"                     
+                         aria-hidden="true">
+                      </i>   
+                    </label>
+                    <input [disabled]="documentEdit" 
+                           type="file" 
+                           id="archivo_manual" 
+                           name="archivo_manual" 
+                           (change)="onFileChangeManual($event.target.files)"
+                           accept="application/pdf">
+                    <div class="row" 
+                         *ngIf="uploadManual">
+                      <div class="offset-md-2 col-md-8">
+                        <progressbar class="progress-striped active" 
+                                     [value]="progressManual" 
+                                     type="success">
+                          <i>{{progressManual}}%</i>
+                        </progressbar>
+                      </div>
+                    </div>
+                    <label *ngIf="manual" 
+                            class="control-label col-md-12 corte" 
+                            style="position: relative; right: 0.6rem;">
+                            {{ urlManual.name }}
+                    </label>
+                  </div>
+
+                  <div class="col-md-4" 
+                       style="padding: 0px 0px 0px 0px; text-align: center; margin-bottom: 1.8rem !important;">
+                    <label class="control-label col-md-12" 
+                           style="padding: 0px 0px 0px 0px;">
+                      Project charter
+                    </label>                    
+                    <label for="project_charter">
+                      <i class="fa fa-file-pdf-o" 
+                         style="background-color: #fff0; font-size: calc(3rem); color: #474746; padding-left: 0px;"                     
+                         aria-hidden="true">
+                      </i>   
+                    </label>   
+                    <input [disabled]="documentEdit" 
+                           type="file" 
+                           id="project_charter" 
+                           name="project_charter" 
+                           (change)="onFileChangeProjectCharter($event.target.files)"
+                           accept="application/pdf">
+                    <div class="row" 
+                         *ngIf="uploadProjectCharter">
+                      <div class="offset-md-2 col-md-8">
+                        <progressbar class="progress-striped active" 
+                                     [value]="progressProjectCharter" 
+                                     type="success">
+                          <i>{{progressProjectCharter}}%</i>
+                        </progressbar>
+                      </div>
+                    </div>
+                    <label *ngIf="projectCharter" 
+                           class="control-label col-md-12 corte" 
+                          style="position: relative; right: 0.6rem;">
+                          {{ urlProjectCharter.name }}
+                    </label>
+                  </div>
+                  
+                  <div class="col-md-4 distancia" 
+                       style="padding: 0px 0px 0px 0px; text-align: center; margin-bottom: 0px !important;">
+                    <label class="control-label col-md-12" 
+                           style="padding: 0px 0px 0px 0px;">
+                           Presentación
+                    </label>
+                    <label for="slideshow">
+                      <i class="fa fa-file-powerpoint-o" 
+                         style="background-color: #fff0; font-size: calc(3rem); color: #474746; padding-left: 0px;"                     
+                         aria-hidden="true">
+                      </i>   
+                     </label>     
+                    <input [disabled]="documentEdit" 
+                           type="file" 
+                           id="slideshow" 
+                           name="slideshow" 
+                           (change)="onFileChangeSlideshow($event.target.files)"
+                           accept="application/pdf">
+                    <div class="row" 
+                         *ngIf="uploadSlideshow">                    
+                      <div class="offset-md-2 col-md-8">
+                        <progressbar class="progress-striped active" 
+                                     [value]="progressSlideshow" 
+                                     type="success">
+                          <i>{{progressSlideshow}}%</i>
+                        </progressbar>
+                      </div>
+                    </div>
+                    <label *ngIf="slideshow" 
+                           class="control-label col-md-12 corte">
+                           {{ urlSlideshow.name }}
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row" 
+                 style="margin-top: 35px;">              
+              <div class="offset-md-2 col-md-8">
+                <div class="row">
+                  <div class="col-md-4" 
+                       style="text-align: center; margin-bottom: 1.8rem !important;">
+                    <label class="control-label col-md-12">
+                      Video
+                    </label>
+                    <label for="video">
+                      <i class="fa fa-file-video-o" 
+                         style="background-color: #fff0; font-size: calc(3rem); color: #474746; padding-left: 0px;"                     
+                         aria-hidden="true">
+                      </i>   
+                     </label>                   
+                    <input [disabled]="videoEdit" 
+                           type="file"
+                           id="video" 
+                           name="video" 
+                           (change)="onFileChangeVideo($event.target.files)"
+                           accept="video/mp4,video/x-m4v,video/*">
+                    <input type="file" 
+                           #fotoPresentacion 
+                           name="fotoPresentacion" 
+                           (change)="onFileFrontPortada($event.target.files)"
+                           accept="image/x-png,image/jpeg">
+                    <div class="row" 
+                         *ngIf="uploadVideo">
+                      <div class="offset-md-2 col-md-8">
+                        <progressbar class="progress-striped active" [value]="progress" type="success"><i> {{progress}}%</i></progressbar>
+                        <!-- <button type="button" class="close pospro"
+                        aria-pressed="true" (click)="destroyVideo()">
+                        <i class="fa fa-times" style="font-size: calc(25px);"> </i>
+                      </button> -->
+                      </div>
+                    </div>
+                    <div class="row" *ngIf="okVideo">
+                      <div class="col-md-12">
+                        <label class="control-label col-md-12 corte" style="position: relative; right: 0.6rem; top: 10px;">{{
+                          urlVideo?.name }}</label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4" 
+                       style="text-align: center; margin-bottom: 1.8rem !important;">
+                    <label class="control-label col-md-12">
+                      Video Demo
+                    </label>
+                    <label for="videoDemo">
+                      <i class="fa fa-file-video-o" 
+                         style="background-color: #fff0; font-size: calc(3rem); color: #474746; padding-left: 0px;"                     
+                         aria-hidden="true">
+                      </i>   
+                     </label>
+                    <input [disabled]="videoEdit" 
+                           type="file" 
+                           id="videoDemo" 
+                           name="videoDemo" 
+                           (change)="onFileChangeVideoDemo($event.target.files)"
+                           accept="video/mp4,video/x-m4v,video/*">
+                    <div class="row" 
+                         *ngIf="uploadVideoDemo">
+                      <div class="offset-md-2 col-md-8">
+                        <progressbar class="progress-striped active" 
+                                     [value]="progressDemo"
+                                      type="success">
+                          <i>{{progressDemo}}%</i>
+                        </progressbar>
+                          <!-- <button type="button"  for="demo"  class="close "
+                          aria-pressed="true" >   
+                              <i  id="demo" class="fa fa-times pospro" (click)="destroyVideoDemo()" style="font-size: calc(25px);" for="demo" > </i>
+                         </button> -->
+                      </div>
+                    </div>
+                    <div class="row" *ngIf="okVideoDemo">
+                        <label class="control-label col-md-12 corte" 
+                               style="position: relative; right: 0.6rem; top: 10px;">
+                               {{ urlVideoDemo?.name }}
+                        </label>
+                    </div>
+                  </div>                  
+                  <div class="col-md-4" 
+                       style="text-align: center;  margin-bottom: 1.8rem !important;">
+                    <label class="control-label col-md-12">
+                      Fotos
+                    </label>
+                    <label for="fotos">
+                      <i  class="fa fa-file-image-o" 
+                          style="background-color: #fff0; font-size: calc(3rem); color: #474746; padding-left: 0px;"                     
+                          aria-hidden="true">
+                      </i>   
+                    </label>                   
+                    <input [disabled]="photoEdit" 
+                           type="file" 
+                           id="fotos" 
+                           name="fotos" 
+                           (change)="onFileChangeFotos($event)"
+                           accept="image/x-png,image/gif,image/jpeg" 
+                           multiple>
+                    <div class="row" 
+                         *ngIf="uploadImages">                     
+                      <div class="offset-md-2 col-md-8">
+                        <progressbar class="progress-striped active"
+                                     [value]="progressImagen"
+                                     type="success">
+                          <i>{{progressImagen}}%</i>
+                        </progressbar>                         
+                      </div>                    
+                    </div>
+                    <div class="row" 
+                         *ngIf="okImages">
+                        <label class="control-label col-md-12 corte" 
+                               style="position: relative; right: 0.6rem; top: 10px;">
+                               {{ contImang }} imagenes subidas
+                        </label>
+                    </div>
+                  </div>
+                </div>
+              </div>             
+            </div>
+             <div class="row" 
+                  style="margin-top: 35px;">
+                <div class="offset-md-2 col-md-8"
+                   style="display: flex; justify-content: center;">        
+                  <div class="col-md-4" 
+                    style="padding: 0px 0px 0px 0px; text-align: center; margin-bottom: 1.8rem !important;">
+                    <label class="control-label col-md-12" 
+                          style="padding: 0px 0px 0px 0px;">
+                      Metodología
+                    </label>                    
+                    <label for="methodology">
+                      <i class="fa fa-file-pdf-o" 
+                        style="background-color: #fff0; font-size: calc(3rem); color: #474746; padding-left: 0px;"                     
+                        aria-hidden="true">
+                      </i>   
+                    </label>   
+                    <input [disabled]="documentEdit" 
+                          type="file" 
+                          id="methodology" 
+                          name="methodology" 
+                          (change)="onFileChangeMethodology($event.target.files)"
+                          accept="application/pdf">
+                    <div class="row" 
+                        *ngIf="uploadMethodology">
+                      <div class="offset-md-2 col-md-8">
+                        <progressbar class="progress-striped active" 
+                                    [value]="progressMethodology" 
+                                    type="success">
+                          <i>{{progressMethodology}}%</i>
+                        </progressbar>
+                      </div>
+                    </div>
+                    <label *ngIf="methodology" 
+                          class="control-label col-md-12 corte" 
+                          style="position: relative; right: 0.6rem;">
+                          {{ urlMethodology.name }}
+                    </label>
+                  </div>                   
+                   
+                  <div class="col-md-4"
+                       style="text-align: center; display: inline-grid; padding: 0px 0px 0px 0px; margin-bottom: 1.8rem !important;">
+                    <label class="control-label col-md-12">Portafolio
+                    </label> 
+                    <button style="background: #fff0; border: none;"
+                            type="button"
+                            [disabled]="portafolioEdit"
+                           (click)="frontModal.show()">
+                      <span 
+                      class="float-right lapiz-izquierda"
+                      style="position: relative; display: contents;">                             
+                        <i class="fa fa-briefcase fa-lg mt-4 lapiz-margen"
+                           style="font-size: calc(3rem); color:#474746; padding-left: 0px; background-color: #fff0; top: -0.5rem; position: relative"
+                            >
+                        </i>
+                  </span> 
+                    </button>                  
+                      
+                  </div>
+
+                  <div class="col-md-4">                    
+                  </div>
+              </div>            
+            </div>
+
+
+            <div class="row">
+              <div class="col-md-12 text-center" 
+                   style="margin: 50px 0px 10px 0px;">
+                <button *ngIf="!updateProject" 
+                        [disabled]="contUpload!=0" 
+                        class="btn btn-success" 
+                        type="submit" 
+                        style="position: relative; right: 2rem;">
+                  <i class="fa fa-save"></i> Guardar
+                </button>
+                <button *ngIf="updateProject && editProject"  
+                        [disabled]="contUpload!=0" 
+                        class="btn btn-success" 
+                        type="submit" 
+                        style="position: relative; right: 2rem;">
+                  <i class="fa fa-save"></i> Actualizar </button>
+                <button class="btn btn-danger" 
+                        (click)="cancelar()" 
+                        type="button" 
+                        style="position: relative; left: 2rem;"><i
+                    class="fa fa-times"></i>
+                  Cancelar
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div bsModal #frontModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name2">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header" 
+           style="background-color: #ffffff;">
+         <i class="fa fa-angle-left"
+            style="margin: 0px 65px 1px 0px; font-size: calc(2rem);" 
+            aria-hidden="true"
+            *ngIf="etiqueta"
+            (click)="atras()">
+         </i>  
+        <h4 id="dialog-sizes-name1" class="modal-title pull-left">Portafolio</h4>
+        <button type="button"
+                class="close pull-right"
+                aria-label="Close"
+                (click)="frontModal.hide()"
+                (click)="cerrar()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" 
+           style=" background-color: #ffffff; display: block; max-width: calc(100%)">
+        <div class="row">
+          <div class="col-md-8" *ngIf="viewVideo">
+            <video id="video" 
+                  [src] = "viewVideo.url"
+                   controls controlslist="nodownload" 
+                   style="max-width: calc(100%); min-width: calc(100%);">
+            </video>
+            <label class="control-label col-md-12" 
+                   style="margin-top: 20px;"> 
+              <strong>
+                {{viewVideo.name}}
+              </strong> 
+            </label>
+          </div>
+          <div class="col-md-8 "
+          style="text-align: center; top: 15px;" 
+         *ngIf="!viewVideo">
+             <img src="assets/img/fondo/Logo4.png" 
+                  style="width: calc(20vw); height: calc(20vw); margin-bottom: 2rem;">   
+          </div>
+          <div class="col-md-4">
+            <div class="container-fluid">
+              <div class="row" 
+                   *ngIf="!listMultimedia"
+                   style="padding: 0 0 0 0;">    
+                <div class="row"
+                     style="margin: 0 0 15px 0;">                     
+                  <label class="control-label col-md-12" 
+                         style="position: relative; right: 0.6rem;">
+                         Nombre de la etiqueta
+                 </label>
+                 <input type="text" 
+                        maxlength=80
+                        [(ngModel)]="etiquetaAdd"
+                        #ctrl="ngModel"
+                        class="form-control col-md-8"
+                        placeholder="Nombre de la lista" >
+                  <button class="btn btn-success" 
+                          type="button"
+                          (click)="setLabel()"
+                          style="position: relative; left: 1rem;">
+                    <i class="fa fa-save"></i> 
+                      Guardar
+                  </button>
+                </div>
+                <div class="row"
+                     style="margin: 0 0 15px 0;">
+                  <label class="control-label" 
+                         for="etiquetaSelect">
+                    Seleccione una etiqueta
+                  </label>
+                  <select class="form-control col-md-8" 
+                          id="labelSelect"
+                          name="labelSelect"
+                          [(ngModel)]="labelSelect"
+                          (ngModelChange)="getEtiqueta($event)">
+                    <option disabled selected="labelSelect" value >
+                      Seleccione
+                    </option>
+                    <option *ngFor="let list of listEtiqueta" 
+                            [ngValue]="list">
+                      {{list.name}}
+                    </option>                    
+                  </select>
+
+                  <button class="btn btn-success" 
+                          type="button"
+                          (click)="shareLabel(etiquetaAdd)"
+                          style="position: relative; left: 1rem;">
+                    <i class="fa fa-search"></i> Buscar
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="row col-md-12" 
+                 *ngIf="listMultimedia"
+                 style="padding: 0; margin: 0 0 30px 0; text-align: center">   
+                 <div class="col-md-12">
+                    <label class="control-label col-md-12"
+                    style="padding: 0;"> 
+                    <strong>Subir video</strong> 
+                  </label>  
+                  <label  for="videoPortafolio">
+                    <i class="fa fa-file-video-o" 
+                        style="background-color: #fff0; font-size: calc(2.5rem); color: #c7a030; padding-left: 0px;"                     
+                        aria-hidden="true">
+                    </i>   
+                  </label>                    
+                  <input type="file" 
+                          id="videoPortafolio" 
+                          name="videoPortafolio" 
+                          (change)="onFileChangeVideoPortafolio($event.target.files)"
+                          accept="video/mp4,video/x-m4v,video/*">
+                  <input type="file" 
+                          #fotoPortafolio 
+                          name="fotoPortafolio" 
+                          (change)="onFileChangeFrontPortafolio($event.target.files)"
+                          accept="image/x-png,image/jpeg">
+                 </div>                
+                  <div class="col-md-12" 
+                    *ngIf="uploadVideoPortafolio">
+                      <div class="offset-md-2 col-md-8">
+                    <progressbar class="progress-striped active" 
+                                 [value]="progressPotafolio"
+                                 type="success">
+                      <i>{{progressPotafolio}}%</i>
+                    </progressbar>                        
+                     </div>
+                  </div>
+                  <div class="col-md-12" 
+                    *ngIf="uploadImag">
+                      <div class="offset-md-2 col-md-8">
+                    <progressbar class="progress-striped active" 
+                                 [value]="progressImag"
+                                 type="success">
+                      <i>{{progressImag}}%</i>
+                    </progressbar>                        
+                     </div>
+                  </div>
+                  <div class="row" *ngIf="listPortaf.length === 0">
+                      <label 
+                        class="control-label col-md-12">
+                        <strong>*</strong> 
+                        Debe registrar un video para visualizar la lista de videos.
+                      </label>
+                  </div>
+              </div>
+              
+               <div class="row" *ngIf="listPortaf.length > 0"> 
+                  <div class="col-md-12">
+                     <label class="control-label col-md-8"> 
+                      <strong>
+                        Lista de videos
+                      </strong>                            
+                      </label>  
+                      <div class="btn-group" 
+                           role="group" 
+                           aria-label="Basic example"
+                           style="float: right;">
+                        <!-- <button type="button" 
+                                (click)="allSelectionVideo(listPortaf)"
+                                class="btn btn-primary btn-sm" 
+                                tooltip="seleccionar todos">
+                          <i class="fa fa-list"></i>
+                          <span class="text-hidden"></span>
+                        </button> -->
+                        <button style="margin-left: calc(20px);"
+                                type="button" 
+                                class="btn btn-primary btn-sm" 
+                                tooltip="Guardar Selección"
+                                (click)="frontModal.hide()"
+                                (click)="savesList()">
+                          <i class="fa fa-save"></i>
+                          <span class="text-hidden"></span>
+                        </button>                        
+                    </div>
+                  </div>
+               </div>
+              <div class="scroll-me" 
+                   *ngIf="listPortaf.length > 0"> 
+                <div class="col-md-12"
+                     style="padding: 0;"  
+                     *ngFor="let list of listPortaf">
+                  <div class="thumb card" 
+                       style="margin-top: 5px;">
+                    <div class="row">
+                      <div class="overlay"> 
+                         <img class="thumbnail" 
+                              src={{list.url}}>   
+                          <a class="playWrapper" 
+                             (click)="showVideoSelect(list.videoId)">  
+                          </a>         
+                      </div>
+                      <label class="control-label col-md-6 corte"
+                             style="padding: 18px 8px 0px 20px;"> 
+                              {{list.name}}
+                      </label>  
+                       <span class="float-right lapiz-izquierda" 
+                             style="right: 10px; top: 8px;">
+                        <div class="col-md-12 custom-control custom-checkbox">
+                            <input  [checked]="videoSelect(list)"
+                                    #contentPlaceholder
+                                    type="checkbox" 
+                                    class="custom-control-input" 
+                                    style="padding: 0px 5px; position: absolute; margin-top: 0.5rem; margin-left: -0.5rem;"
+                                    id="exampleCheck-{{list.id}}" 
+                                    (change)="loadingSelectLabels(list, $event);">
+                            <label class="custom-control-label" 
+                                   for="exampleCheck-{{list.id}}">
+                            </label>
+                        </div>
+                      </span>
+                    <!--   <span class="float-right lapiz-izquierda">
+                        <div class="col-6 col-sm-4 col-md-3 col-lg-2"
+                             style="padding: 4px;">
+                          <i class="fa fa-trash fa-lg mt-4 lapiz-margen"
+                             (click)="deleteVideo(list)"
+                             style="font-size: calc(1.5rem);">
+                          </i>
+                        </div>
+                      </span> -->
+                    </div>                   
+                  </div>               
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>

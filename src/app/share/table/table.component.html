@@ -1,0 +1,54 @@
+<div class="row">
+  <div class="col-xs-12 col-12">
+  <form [formGroup]="searchForm">
+    <input type="text" name="search" id="search" placeholder="Buscar" formControlName="search">
+    <select formControlName="type">
+      <ng-container *ngFor="let head of header">
+        <option [ngValue]="head" *ngIf="head.name">{{ head.title }}</option >
+      </ng-container>
+    </select>
+  </form>
+  </div>
+  <div class="col-xs-12 col-12">
+    <div class="content-wrapper table-responsive">
+      <table class="table table-bordered table-striped table-sm">
+        <thead class="black white-text">
+        <tr>
+          <th *ngFor="let head of header">{{head.title}}</th>
+        </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of items; index as i;">
+            <td *ngFor="let head of header">
+              <span *ngIf="head.name; else elseButton">{{getValue(item, head)}}</span>
+              <ng-template #elseButton>
+                <div class="btn-group">
+                  <button *ngFor="let option of head.buttons" class="btn btn-sm"
+                          (click)="tableEvent(item, option.action);">
+                    <i [class]="option.icon" class="fa fa-info" aria-hidden="true"></i>
+                  </button>
+                </div>
+              </ng-template>
+            </td>
+          </tr>
+          <tr *ngIf=" _elements?.length === 0">
+            <td></td>
+            <td  class="text-center" colspan="99" >NO EXISTEN REGISTRO ASOCIADO.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <pagination 
+      class="float-right" 
+      previousText="&lsaquo;"
+      nextText="&rsaquo;"
+      firstText="&laquo;"
+      lastText="&raquo;"
+      [totalItems]="total" 
+      [boundaryLinks]="true" 
+      (pageChanged)="pageChanged($event)" >
+    </pagination>
+  </div>
+</div>
+
+

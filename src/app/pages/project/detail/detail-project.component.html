@@ -1,0 +1,285 @@
+<page-loader></page-loader>
+<div class="animated fadeIn">
+
+  <!-- <div class="container cont" style="width: calc(90%)!important;"> -->
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card" *ngIf="view">
+        <div class="card-header">
+          <h3 class="corte" style="margin-bottom: 0px; font-family: 'Nunito', sans-serif;"><strong>{{ project.name }}</strong></h3>
+        </div>
+        <div class="card-body">
+
+          <div class="row conf-r">
+
+            <div class="col-md-12" style="display: flex; justify-content: center;">
+              <div class="card card-color">
+                <div *ngIf="project" class="card-body" style="padding: 0px !important;">
+
+
+                  <div class="row" style="margin-top: 30px;">
+                    <div class="col-md-7">
+
+                      <div class="row">
+                        <div class="col-md-12" style="padding-left: 50px !important;">
+                          <label class="control-label col-md-12" style="position: relative; right: 0.9rem;"><strong>Descripción</strong>
+                          </label>
+                          <p style="padding-left: 10px; white-space: normal; text-align: justify;"
+                             [innerHTML]="project.description"></p>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-md-12" *ngFor="let listPlatf of project.platforms" style="padding-left: 50px !important; padding-top: 0px;">
+                          <label class="control-label col-md-12 " style="position: relative; right: 0.9rem;"><strong>Plataforma</strong></label>
+                          <p style="padding-left: 10px;">{{ listPlatf.name_platform }}</p>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-md-12" *ngFor="let listMod of project.modules" style="padding-left: 50px !important; padding-top: 0px;">
+                          <label class="control-label col-md-12 " style="position: relative; right: 0.9rem;"><strong>Modulo</strong></label>
+                          <p style="padding-left: 10px;">{{ listMod.name_module }}</p>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-md-12" style="padding-left: 50px !important;">
+                          <label class="control-label col-md-12 " style="position: relative; right: 0.9rem;"><strong>Objetivo
+                              general</strong>
+                          </label>
+                          <p style="padding-left: 10px; text-align: justify;"
+                             [innerHTML]="project.overall_objective"></p>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-md-12" style="padding-left: 50px !important;">
+                          <label class="control-label col-md-12" style="position: relative; right: 0.9rem;"><strong>Objetivo
+                              específico</strong>
+                          </label>
+                          <p style="padding-left: 10px; text-align: justify;"
+                             [innerHTML]="project.goal_objective"></p>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-md-12" style="padding-left: 50px !important;">
+                          <label class="control-label col-md-12" style="position: relative; right: 0.9rem;"><strong>Cantidad
+                              de horas</strong>
+                          </label>
+                          <p style="padding-left: 10px;">{{ project.quantity_hours }}hrs</p>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-md-12" style="padding-left: 50px !important;">
+                          <label class="control-label col-md-12" style="position: relative; right: 0.9rem;"><strong>Precio</strong>
+                          </label>
+                          <p style="padding-left: 10px;">{{project.price}} {{project.currency}}</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-5 img-row">
+                      <div class="row" *ngIf="FotoView" >
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8" style="text-align: center;">
+                          <label class="control-label col-md-12 ">
+                            <strong>Galeria</strong></label>
+                            <i class="fa fa-file-image-o rounded ico-tam" style="background-color: #fff0; left: 0px; color: #c7a030; padding-left: 0px;"
+                            (click)="childModal.show()"  aria-hidden="true"></i>                           
+                        </div>
+                        <div class="col-md-2"></div>
+                      </div>
+
+                      <div class="row" style="margin-top: 30px;" *ngIf="videoView">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8" style="text-align: center;">
+                          <label class="control-label col-md-12">
+                            <strong>Video</strong>
+                          </label>
+                          <i class="fa fa-film rounded ico-tam" style="background-color: #fff0; left: 0px; color: #c7a030; padding-left: 0px;"
+                            (click)="videoModal.show()" aria-hidden="true"></i>
+                        </div>
+                        <div class="col-md-2"></div>
+                      </div>
+
+                      <div class="row" style="margin-top: 30px;" *ngIf="videoDemo">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8" style="text-align: center;">
+                          <label class="control-label col-md-12">
+                            <strong>Video Demo</strong>
+                          </label>
+                          <i class="fa fa-film rounded ico-tam" style="background-color: #fff0; left: 0px; color: #c7a030; padding-left: 0px;"
+                            (click)="demoModal.show()" aria-hidden="true"></i>
+                        </div>
+                        <div class="col-md-2"></div>
+                      </div>
+
+                      <div  *ngIf="charView" class="row ajustar-card" style="padding-left: 5px !important; margin-top: 30px;">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8" style="padding-right: 0px; padding-left: 0px; text-align: center;">
+                          <label class="control-label col-md-12" style="position: relative; padding-right: 0px; padding-left: 0px;">
+                            <strong>Project Charter</strong></label>
+                          <div class="col-md-12 modal-galeria">
+                            <a style="color: #c39614d9;" [href]="projectCharter.url" target="_blank" [download]="projectCharter.name">
+                              <i class="fa fa-file-powerpoint-o ico-tam" aria-hidden="true"></i>
+                            </a>
+                          </div>
+                        </div>
+                        <div class="col-md-2"></div>
+                      </div>
+
+                      <div  *ngIf="slidView" class="row ajustar-card" style=" padding-left: 5px !important; margin-top: 20px;">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8" style="padding-right: 0px; padding-left: 0px; text-align: center;">
+                          <label class="control-label col-md-12" style="position: relative; padding-right: 0px; padding-left: 0px;">
+                            <strong>Slideshow</strong>
+                          </label>
+                          <div class="col-md-12 modal-galeria">
+                            <a style="color: #c39614d9;" [href]="slideshow.url" target="_blank" [download]="slideshow.name">
+                              <i class="fa fa-file-pdf-o ico-tam" style="left: 0px;" aria-hidden="true"></i>
+                            </a>
+                          </div>
+                        </div>
+                        <div class="col-md-2"></div>
+                      </div>
+
+                      <div *ngIf="functionalView" class="row ajustar-card" style=" padding-left: 5px !important; margin-top: 20px;">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8" style="padding-right: 0px; padding-left: 0px; text-align: center;" >
+                          <label class="control-label col-md-12" style="position: relative; padding-right: 0px; padding-left: 0px;">
+                            <strong>Funcional</strong>
+                          </label>
+                          <div class="col-md-12 modal-galeria">
+                            <a style="color: #c39614d9;" [href]="functional.url" target="_blank" [download]="functional.name">
+                              <i class="fa fa-file-pdf-o ico-tam" style="left: 0px;" aria-hidden="true"></i>
+                            </a>
+                          </div>
+                        </div>
+                        <div class="col-md-2"></div>
+                      </div>
+
+                      <div *ngIf="technicaView" class="row ajustar-card" style=" padding-left: 5px !important; margin-top: 20px;">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8" style="padding-right: 0px; padding-left: 0px; text-align: center;" >
+                          <label class="control-label col-md-12" style="position: relative; padding-right: 0px; padding-left: 0px;">
+                            <strong>Tecnico</strong>
+                          </label>
+                          <div class="col-md-12 modal-galeria">
+                            <a style="color: #c39614d9;" [href]="technica.url" target="_blank" [download]="technica.name">
+                              <i class="fa fa-file-pdf-o ico-tam" style="left: 0px;" aria-hidden="true"></i>
+                            </a>
+                          </div>
+                        </div>
+                        <div class="col-md-2"></div>
+                      </div>
+
+                      <div *ngIf="manualView" class="row ajustar-card" style=" padding-left: 5px !important; margin-top: 20px;">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8" style="padding-right: 0px; padding-left: 0px; text-align: center;">
+                          <label class="control-label col-md-12" style="position: relative; padding-right: 0px; padding-left: 0px;">
+                            <strong>Manual de Usuario</strong>
+                          </label>
+                          <div class="col-md-12 modal-galeria">
+                            <a style="color: #c39614d9;" [href]="manual.url" target="_blank" [download]="manual.name">
+                              <i class="fa fa-file-pdf-o ico-tam" style="left: 0px;" aria-hidden="true"></i>
+                            </a>
+                          </div>
+                        </div>
+                        <div class="col-md-2"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-footer" style="margin: 0px 1px 20px 1px; display: flex; justify-content: center;">
+                  <div class="row">
+                    <button type="button" class="btn btn-showcase" (click)="atras()">Atras</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- </div> -->
+</div>
+
+<div bsModal #childModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name2">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header" style=" background-color: #ffffff; ">
+          <h4 id="dialog-sizes-name1" class="modal-title pull-left">Galeria</h4>
+          <button type="button" class="close pull-right" aria-label="Close" (click)="childModal.hide()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" style=" background-color: #ffffff; display: block; max-width: calc(100%)">
+          <carousel [interval]="myInterval" [(activeSlide)]="activeSlideIndex">
+            <slide *ngFor="let slide of images; let index=index">
+              <img [src]="slide.url" 
+                   alt="image slide" 
+                   style="min-width: calc(100%) !important; 
+                        max-width: calc(30vw) !important;
+                        min-height: calc(30rem) !important; 
+                        max-height: calc(30rem) !important;">
+            </slide>
+          </carousel>
+        </div>
+      </div>
+    </div>
+  </div>  
+
+<div bsModal #videoModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name2">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header" style=" background-color: #ffffff;">
+        <h4 id="dialog-sizes-name1" class="modal-title pull-left">Video</h4>
+        <button type="button" class="close pull-right" aria-label="Close" onclick="document.getElementById('video').pause();"
+          (click)="videoModal.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style=" background-color: #ffffff;">
+        <div class="row" style="text-align: center;">
+
+          <div class="col-md-12" *ngFor="let listMulti of this.project.multimedias">
+            <video *ngIf="listMulti.extension == 'mp4' && listMulti.type == 'video'" id="video" controls controlslist="nodownload" style="max-width: calc(100%);">
+              <source [src]='listMulti.url'>
+            </video>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div bsModal #demoModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name2">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header" style=" background-color: #ffffff;">
+        <h4 id="dialog-sizes-name1" class="modal-title pull-left">Video Demo</h4>
+        <button type="button" class="close pull-right" aria-label="Close" onclick="document.getElementById('demo').pause();"
+          (click)="demoModal.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style=" background-color: #ffffff;">
+        <div class="row" style="text-align: center;">
+
+          <div class="col-md-12" *ngFor="let listMulti of this.project.multimedias">
+            <video *ngIf="listMulti.extension == 'mp4' && listMulti.type == 'demo'" 
+                   id="demo" 
+                   controls controlslist="nodownload" 
+                   style="max-width: calc(100%);">
+              <source [src]='listMulti.url'>
+            </video>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

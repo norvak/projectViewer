@@ -1,0 +1,394 @@
+<page-loader></page-loader>
+<div class="app-body">
+  <div class="animated fadeIn">
+
+    <nav class="navbar  navbar-fixed-top bg-inverse" style="padding-bottom: 0px !important; background-color: #fff;">
+      <div class="container" *ngIf="elements" style="width: calc(90%) !important; padding-right: 0px; padding-left: 0px;">
+
+        <div class="navbar-brand" style="width: calc(7rem + 5vh) !important; float: left;">
+          <img *ngIf="elements.companies.photo" [src]="elements.companies.photo" style="width: calc(100%) !important;" class="img-responsive rounded">
+        </div>
+        <div class="row text-company" style="font-family: 'Nunito', sans-serif; width: 60%;">
+          <div class="col-md-12">
+            <label class="control-label col-md-12" style="margin: 0px;">
+              <h3><strong>{{elements?.companies?.name }} </strong> </h3>
+            </label>
+            <!-- <label class="control-label col-md-12 "> -->
+            <h5 class="parrafo-just" style="text-align: center; width: 100%; font-family: 'Montserrat', sans-serif; font-weight: 300; margin-bottom: 1rem;"><strong>{{elements?.companies?.description }}
+              </strong> </h5>
+            <!-- </label> -->
+          </div>
+        </div>
+
+        <ul class="navbar-nav justify-content-end"
+            style="float: right;">
+          <li class="nav-item dropdown" 
+              dropdown placement="bottom right">
+            <img src="assets/img/fondo/Logo2.png"
+                 class="img-avatar" 
+                 style="width: calc(12rem);">
+                 <!--  height: calc(4.7rem); -->
+          </li>
+        </ul>
+
+      </div>
+    </nav>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card" 
+             *ngIf="elements" 
+             style=" background-color: #f1f1f100;">
+          <div class="card-body">
+            <div class="row" 
+                 style="justify-content: center;">
+              <div class="alert alert-dark"
+                   role="alert">
+                <div class="col-md-12">
+                  <div class="row title">
+                    <div class="col-md-12 text-center" 
+                         style="margin-top: 15px;">
+                      <label class="control-label col-md-12">
+                        <h5 class="color-text-name" 
+                            style="margin-bottom: 0px; margin-top: 10px;">
+                            <strong>
+                              {{elements?.companies?.name}} 
+                            </strong> 
+                        </h5>
+                      </label>
+                    </div>
+                  </div>
+
+                  <div class="row title">
+                    <div class="form-group col-md-12 text-center">
+                      <label class="control-label col-md-12">
+                        <h6><strong>
+                            {{elements?.companies?.description }}
+                          </strong>
+                        </h6>
+                      </label>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-12">
+                      <label class="control-label parrafo-just" style="margin-bottom: 0px;">
+                        <h5 style="margin-bottom: 0px; text-align: justify !important; word-spacing: 0px; font-weight: 300;">
+                          <strong>
+                            {{elements?.explanatory_text}}
+                          </strong>
+                        </h5>
+                      </label>
+                    </div>
+                  </div>
+
+                  <br>
+                  <br>
+
+                  <div class="row">
+
+                    <div class="col-md-10">
+                      <div class="input-group mb-3" 
+                           style="display: flex; justify-content: flex-end;">
+                        <input disabled type="text" 
+                               class="copy"
+                               [(ngModel)]="elements.url" 
+                               aria-label="Recipient's username"
+                               aria-describedby="button-addon2">
+                        <div class="input-group-append">
+                          <button (click)="copiarEnlaceVitrina()" 
+                                  class="btn btn-outline-showcase" 
+                                  type="button" id="button-addon2">
+                            <i class="fa fa-clone" 
+                               aria-hidden="true" 
+                               tooltip="Copiar el enlace de la vitrina"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-2"  style="padding: 0px;">
+                      <h6 style="margin-top: calc(10px);">
+                         <strong>
+                          Copiar enlace
+                        </strong>
+                      </h6>
+                    </div>
+
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <br>
+            <br>
+
+            <div class="row col-md-12 center-row"
+                 style="margin-bottom: 10px;">
+              <div class="col-md-6"
+                   *ngFor="let list of elements.projects | paginate: { itemsPerPage: numPage, currentPage: pages }" 
+                   style="display: flex; justify-content: center;">
+                <div class="card three card-tam" 
+                     style="min-width: calc(40vw) !important">
+                  <div class="card-header"
+                       style="font-family: 'Nunito', sans-serif;">
+                    <h4 class="corte text-just"
+                        style="width: calc(90%);">
+                        <strong>
+                          {{ list.name }}
+                        </strong>
+                    </h4>
+                    <span class="float-right lapiz-izquierda">
+                      <div class="col-6 col-sm-4 col-md-3 col-lg-2" 
+                           tooltip="Copiar el enlace del proyecto">
+                        <button (click)="copiarEnlace(list)"
+                                class="btn btn-outline-showcase" 
+                                type="button"
+                                id="button-addon2">
+                          <i  class="fa fa-clone" 
+                              aria-hidden="true">
+                          </i>
+                        </button>
+                      </div>
+                    </span>
+                  </div>
+                  <div class="card-body" 
+                       style="padding-bottom: 0px !important;">
+                    <div class="row ajustar-card"  
+                         *ngFor="let multimedia of list.multimedias">
+                      <video *ngIf="multimedia.extension == 'mp4' && multimedia.type == 'video'" 
+                             id="video" 
+                             controls controlslist="nodownload" 
+                             style="max-width: calc(100%); height: calc(20vw); padding-right: 15px !important; min-width: calc(100%);">
+                        <source [src]='multimedia.url'>
+                      </video>
+                    </div>
+                    <div class="row col-md-12 ajustar-card" style="margin-top: 1rem;">
+                      <label class="control-label col-md-12" style="position: relative; right: 0.9rem;"><strong>Descripción</strong>
+                      </label>
+                      <p class="text-just block-ellipsis" 
+                         style="padding-left: 10px; text-align: justify;"
+                         [innerHTML]="list.description"></p>
+                    </div>
+
+                    <div class="row  ajustar-card">
+                      <div class="col-xs-6" style="width: 50%;">
+                        <label class="control-label col-md-12" style="position: relative; right: 0.9rem;"><strong>Plataforma</strong>
+                        </label>
+                        <div class="col-md-12" *ngFor="let listPlat of list.platforms" style="padding-right: 0px !important; padding-left: 0px !important;">
+                          <p class="text-just" style="padding-left: 10px;">{{ listPlat.name_platform }}</p>
+                        </div>
+                      </div>
+                      <div class="col-xs-6">
+                        <label class="control-label col-md-12" style="position: relative; right: 0.9rem;"><strong>Modulo</strong>
+                        </label>
+                        <div class="col-md-12" *ngFor="let listMod of list.modules" style="padding-right: 0px !important; padding-left: 0px !important;">
+                          <p class="text-just" style="padding-left: 10px;">{{ listMod.name_module }}</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- <div class="row col-md-12 ajustar-card">
+                      <label class="control-label col-md-12" style="position: relative; right: 0.9rem;"><strong>Objetivo
+                          general</strong>
+                      </label>
+                      <p class="text-just corte" style="padding-left: 10px;">{{ list.overall_objective }}</p>
+                    </div>
+
+                    <div class="row col-md-12 ajustar-card">
+                      <label class="control-label col-md-12" style="position: relative; right: 0.9rem;"><strong>Objetivo
+                          específico</strong>
+                      </label>
+                      <p class="text-just corte" style="padding-left: 10px;">{{ list.goal_objective }}</p>
+                    </div> -->
+                  </div>
+                  <br>
+                  <div class="card-footer text-muted">
+                      <div class="row btn-fond">
+                          <button type="button" class="btn btn-showcase" (click)="detailProject(list)">Detalles</button>
+                        </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12" style="display: flex; justify-content: center;"> 
+                  <pagination-template #p="paginationApi" (pageChange)="pages=$event">
+                    <nav class="text-left" style="position: relative;">
+                      <ul class="pagination">
+                        <li class="page-item" [class.disabled]="p.isFirstPage()">
+                          <a class="page-link" (click)="p.previous()"> <span class="fa fa-angle-double-left"></span> </a>
+                        </li>
+            
+                        <li *ngFor="let page of p.pages" [class.current]="p.getCurrent() === page.value" class="page-item"
+                          [ngClass]="{'active' : p.getCurrent() === page.value}">
+                          <a class="page-link" (click)="p.setCurrent(page.value)" *ngIf="p.getCurrent() !== page.value"> {{
+                            page.label }} </a>
+                          <a class="page-link" *ngIf="p.getCurrent() === page.value"> {{ page.label }} </a>
+                        </li>
+            
+                        <li class="page-item" [class.disabled]="p.isLastPage()">
+                          <a class="page-link" (click)="p.next()"> <span class="fa fa-angle-double-right"></span> </a>
+                        </li>
+                      </ul>
+                    </nav>
+                  </pagination-template>
+                </div>
+              </div>
+
+              <br>
+              <br>
+
+            <div class="row" style="margin-bottom: 50px;">
+              <div class="col-md-12" style="justify-content: center; display: flex;">
+                <div class="card three" style="width: calc(80%)!important;">
+                  <div class="card-header" style="text-align: center; font-family: 'Nunito', sans-serif;">
+                    <h4 class="corte color-text"><strong>Solicitud</strong></h4>
+                  </div>
+
+                  <div class="card-body">
+                    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="form-horizontal was-validated">
+                      <div class="container">
+
+                        <div class="row">
+                          <div class="col-md-8">
+                            <div class="row">
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label class="control-label col-md-12 color-text-name" for="name_request" style="position: relative; right: 0.9rem;">Nombre
+                                    y apellido</label>
+                                  <input formControlName="name" maxlength=80 placeholder="Nombre y apellido*" type="text"
+                                    class="form-control" id="name">
+                                </div>
+                              </div>
+
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label class="control-label col-md-12 color-text-name" for="company_request" style="position: relative; right: 0.9rem;">Empresa</label>
+                                  <input type="text" formControlName="company" maxlength=80 placeholder="Nombre de la empresa*"
+                                    class="form-control" id="company">
+                                </div>
+                              </div>
+                            </div>
+
+
+                            <div class="row" 
+                                 style="margin-top: 20px;">
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label class="control-label col-md-12 color-text-name" 
+                                         for="phone"
+                                         style="position: relative; right: 0.9rem;">
+                                         Teléfono
+                                  </label>
+                                  <input type="text" 
+                                         formControlName="phone" 
+                                         maxlength=80 
+                                         placeholder="Teléfono*" 
+                                         class="form-control"
+                                         id="phone">
+                                </div>
+                              </div>
+
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label class="control-label col-md-12 color-text-name" 
+                                         for="email" 
+                                         style="position: relative; right: 0.9rem;">
+                                         Email
+                                  </label>
+                                  <input type="text" 
+                                         formControlName="email"
+                                         maxlength=80 
+                                         placeholder="Email*" 
+                                         class="form-control"
+                                         name="email" 
+                                         id="email">
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="row" style="margin-top: 20px;">
+
+                              <div class="col-md-12">
+                                <div class="form-group">
+                                  <label class="control-label col-md-12" for="consulta" style="position: relative; right: 0.9rem;">Consulta</label>
+                                  <textarea type="text" formControlName="description" maxlength=2500 id="consulta" rows="5"
+                                    class="form-control">
+                                      </textarea>
+                                </div>
+                              </div>
+                              <div class="col-md-4">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+
+                            <div class="row" 
+                                 style="margin-top: 20px;">
+                              <div class="col-md-12 text-center">
+                                <label class="form-col-form-label color-text">
+                                  <strong>
+                                    Información de contacto
+                                  </strong>
+                                </label>
+                              </div>
+                            </div>
+
+                            <div class="row">
+                              <div class="col-md-12 text-center">
+                                <label class="form-col-form-label color-text-name">
+                                  {{elements?.companies?.manager?.name_manager
+                                  }} {{
+                                  elements?.companies?.manager?.last_name_manager }}
+                                </label>
+                              </div>
+                            </div>
+
+
+                            <div class="row">
+                              <div class="col-md-12 text-center">
+                                <label class="form-col-form-label color-text">
+                                  <strong>
+                                    Teléfono:
+                                   </strong>
+                                  {{ elements?.companies?.phone }}
+                                </label>
+                              </div>
+                            </div>
+
+
+                            <div class="row">
+                              <div class="col-md-12 text-center">
+                                <label class="form-col-form-label color-text-name">
+                                  {{ elements?.companies?.email}}
+                                </label>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+
+                      </div>
+                      <div class="card-footer" 
+                           style="margin: 40px 1px 20px 1px; display: flex; justify-content: center;">
+                        <div class="row">
+                          <button type="submit"
+                                  class="btn btn-showcase">
+                                  Solicitar
+                          </button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

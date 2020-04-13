@@ -1,0 +1,251 @@
+<page-loader></page-loader>
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">  
+        <div *ngIf="!updateShowcase" class="card-header text-center" style="font-family: 'Nunito', sans-serif;">
+          <h4><strong>Registrar Vitrina</strong></h4>         
+        </div>
+
+        <div *ngIf="updateShowcase" class="card-header text-center" style="font-family: 'Nunito', sans-serif;">
+            <h4><strong>Editar Vitrina</strong></h4>         
+          </div>
+
+        <div class="card-body">
+          <form [formGroup]="registerForm"
+                (ngSubmit)="onSubmit()"
+                class="form-horizontal was-validated"
+                >
+            <div class="row">
+              <div class="col-md-4 offset-md-2">
+                <div class="row">
+                  <div class="form-group col-md-12 distancia">
+                    <label class="control-label col-md-12" 
+                        style="position: relative; right: 0.6rem;">
+                        Fecha de creación
+                    </label>
+                    <input name="creation_date"
+                      formControlName="creation_date"
+                      [bsConfig]="datePickerConfig"
+                      type="text"
+                      class="form-control"
+                      placeholder="Fecha de creación *"
+                      bsDatepicker
+                      autocomplete="off"
+                      required>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="form-group col-md-12 distancia">
+                    <label class="control-label col-md-12" 
+                      style="position: relative; right: 0.6rem;">
+                      Cliente
+                    </label>
+                    <input type="text" 
+                      class="form-control" 
+                      id="name_client"
+                      formControlName="nameClient"
+                      name="name_client" 
+                      (change)="changeClient($event.target.value)"
+                      placeholder="Nombre de la empresa" 
+                      list="listClient" 
+                      required>
+                    <datalist id="listClient">                    
+                        <option *ngFor="let list of listClient" 
+                                [value]="list.name"></option>                     
+                    </datalist>
+                    <div *ngIf="submitted && validate.company_id.errors" 
+                    class="invalid-feedback">
+                      <div *ngIf="validate.company_id.errors.required">
+                        La empresa es requerido
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="form-group col-md-12 distancia"> 
+                      <label class="control-label col-md-10" style="padding-right: 0px;" 
+                      style="position: relative; right: 0.6rem;">
+                      Mostrar precio de proyectos: 
+                    </label>
+                    <label style="position: relative; top: 14px;"
+                           class="switch switch-sm switch-3d switch-primary">
+                      <input type="checkbox"           
+                             formControlName="view_prices"  
+                        class="switch-input" checked>
+                      <span class="switch-slider"
+                      tooltip="habilita o desabilita el precio de los proyectos"></span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="col-md-4">
+                <label class="control-label col-md-12" 
+                  style="position: relative; right: 0.6rem;">
+                  Texto explicativo
+                </label>
+                <textarea type="text" 
+                  rows="5" 
+                  formControlName="explanatory_text" 
+                  type="text" 
+                  class="form-control" required>
+                </textarea>
+                <div *ngIf="submitted && validate.explanatory_text.errors" 
+                class="invalid-feedback">
+                  <div *ngIf="validate.explanatory_text.errors.required">
+                    El texto explicativo es requerido
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <br>
+            <br>
+
+            <div class="row col-md-12 center-row" style="margin-bottom: 10px;">
+                <div class="col-md-4" 
+                  *ngFor="let list of listProyecto | paginate: { itemsPerPage: numPage, currentPage: pages }">
+                  <div class="card three card-tam" 
+                       [ngClass]="{'deshablitado': resul == '','denegado': list.original_customer == resul, 'aprobado': list.original_customer != resul}">
+                    <div class="card-header" style="font-family: 'Nunito', sans-serif;">
+                      <h4 class="corte" style="width: calc(90%);"><strong>{{ list.name }}</strong></h4>
+                      <span class="float-right lapiz-izquierda">
+                        <div class="col-md-12 custom-control custom-checkbox">
+                            <input 
+                              [checked]="projectSelect(list)"
+                              type="checkbox" 
+                              [disabled]="!bloqueado" 
+                              class="custom-control-input" 
+                              style="padding: 0px 5px; position: absolute; margin-top: 0.5rem; margin-left: -0.5rem;"
+                              id="exampleCheck-{{list.id}}" 
+                              (change)="loadingProject(list, $event);">
+                            <label class="custom-control-label" 
+                            for="exampleCheck-{{list.id}}"></label>
+                        </div>
+                      </span>
+                    </div>
+                    <div class="card-body" style="padding-bottom: 0px !important;">
+
+                      <div class="row col-md-12 ajustar-card">
+                        <label class="control-label col-md-12" style="position: relative; right: 0.9rem; margin: 0px !important"><strong>Descripción</strong>
+                        </label>
+                        <p class="text-just block-ellipsis"
+                          [innerHTML]="list.description"></p>
+                      </div>                  
+      
+                      <div class="row ajustar-card">
+                        <label class="control-label col-md-12" style="position: relative; right: 0.9rem; margin: 0px !important"><strong>Plataforma</strong>
+                        </label>
+                        <div class="col-md-12" *ngFor="let listPlat of list.platforms" style="padding-right: 0px !important; padding-left: 0px !important;">
+                          <p class="text-just">{{ listPlat.name_platform }}</p>
+                        </div>
+                      </div>
+      
+                      <div class="row ajustar-card">
+                        <label class="control-label col-md-12" style="position: relative; right: 0.9rem; margin: 0px !important"><strong>Modulo</strong>
+                        </label>
+                        <div class="col-md-12" *ngFor="let listMod of list.modules" style="padding-right: 0px !important; padding-left: 0px !important;">
+                          <p class="text-just">{{ listMod.name_module }}</p>
+                        </div>
+                      </div>
+      
+                      <div class="row col-md-12 ajustar-card">
+                        <label class="control-label col-md-12" style="position: relative; right: 0.9rem; margin: 0px !important"><strong>Objetivo
+                            general</strong>
+                        </label>
+                        <p class="text-just corte"
+                           [innerHTML]="list.overall_objective"></p>
+                      </div>
+      
+                      <div class="row col-md-12 ajustar-card">
+                        <label class="control-label col-md-12" style="position: relative; right: 0.9rem; padding-right: 0px !important; margin: 0px !important"><strong>Objetivo
+                            específico</strong>
+                        </label>
+                        <p class="text-just corte"
+                           [innerHTML]="list.goal_objective"></p>
+                      </div>
+      
+                      <div class="row col-md-12 ajustar-card">
+                        <div class="col-md-12" 
+                             *ngFor="let listAut of list.authors" 
+                             style="padding-right: 0px !important; padding-left: 0px !important;">
+                          <div *ngIf="listAut.type_id==2">
+                            <label class="control-label col-md-12" 
+                                   style="position: relative; padding: 0px; margin: 0px;">
+                              <strong>Coordinador de ventas</strong>
+                            </label>
+                            <p class="h6" style="padding-left: 10px">
+                              {{ listAut.author.name_author }}
+                            </p>
+                          </div>
+                          <div *ngIf="listAut.type_id==3">
+                            <strong>Desarrollador</strong>
+                            <p class="h6" 
+                               style="padding-left: 10px">
+                              {{ listAut.author.name_author }}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+      
+                      <br>
+                      <div class="row btn-fond">
+                        <button type="button"
+                                class="btn btn-showcase" 
+                               (click)="DetailProject(list)">
+                               Detalles
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+
+
+            <div class="row">
+              <div class="col-md-12 text-center">
+                <button type="submit" class="btn btn-success" style="position: relative; right: 2rem;">
+                  <i class="fa fa-save"></i> Guardar </button>
+                <button class="btn btn-danger" (click)="cancelar()" style="position: relative; left: 2rem;"><i class="fa fa-times"></i>
+                  Cancelar</button>
+              </div>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="row" *ngIf="list">
+  <div class="col-md-12">
+
+    <pagination-template #p="paginationApi" (pageChange)="pages=$event">
+      <nav class="text-left" style="position: relative; left: 1.1rem;">
+        <ul class="pagination">
+          <li class="page-item" [class.disabled]="p.isFirstPage()">
+            <a class="page-link" (click)="p.previous()"> <span class="fa fa-angle-double-left"></span> </a>
+          </li>
+
+          <li *ngFor="let page of p.pages" [class.current]="p.getCurrent() === page.value" class="page-item" [ngClass]="{'active' : p.getCurrent() === page.value}">
+            <a class="page-link" (click)="p.setCurrent(page.value)" *ngIf="p.getCurrent() !== page.value">
+              {{
+              page.label }} </a>
+            <a class="page-link" *ngIf="p.getCurrent() === page.value"> {{ page.label }} </a>
+          </li>
+
+          <li class="page-item" [class.disabled]="p.isLastPage()">
+            <a class="page-link" (click)="p.next()"> <span class="fa fa-angle-double-right"></span> </a>
+          </li>
+        </ul>
+      </nav>
+    </pagination-template>
+  </div>
+</div>
